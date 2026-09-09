@@ -2,6 +2,39 @@
 <html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
+    <!-- ============================================================
+         GOOGLE CONSENT MODE v2 (default = deny until user chooses)
+    ============================================================ -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+        // Відновлюємо попередній вибір користувача (якщо є)
+        (function () {
+            try {
+                var saved = localStorage.getItem('gr_consent');
+                if (saved) { gtag('consent', 'update', JSON.parse(saved)); }
+            } catch (e) {}
+        })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHRPR9SMJF"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-VHRPR9SMJF');
+        // === GOOGLE ADS ===
+        // Коли створиш Google Ads, розкоментуй рядок нижче і встав свій AW-ID:
+        // gtag('config', 'AW-XXXXXXXXX');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дякуємо! Заявка отримана — Guitar Residence</title>
     <meta name="robots" content="noindex, nofollow">
@@ -9,26 +42,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Google tag (gtag.js) — ВСТАВ СВІЙ AW-XXXXXXXXX -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-00000000000"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-00000000000');
-
-        // Надсилання конверсії "Заявка"
-        gtag('event', 'conversion', {
-            'send_to': 'AW-00000000000/XXXXXXXXXXXXXXXX',
-            'value': 200.0,
-            'currency': 'UAH'
-        });
-    </script>
-
     <style>
         :root {
-            --gold: #d8a23d;
-            --gold-light: #f1bd59;
+            --gold: #c48a28;
+            --gold-light: #d4a03d;
             --bg-main: #0b0c0b;
             --bg-secondary: #121311;
             --bg-tertiary: #191a17;
@@ -39,7 +56,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: var(--bg-main);
+            background: radial-gradient(circle at 50% 0%, rgba(212,160,61,0.10), transparent 42%), var(--bg-main);
             color: var(--text-main);
             font-family: "Manrope", sans-serif;
             line-height: 1.6;
@@ -47,137 +64,263 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px 20px;
         }
+        a:focus-visible, button:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 3px; }
         .thankyou-card {
-            max-width: 640px;
-            width: 100%;
-            background: var(--bg-secondary);
-            border: 1px solid rgba(212, 160, 61, 0.25);
-            border-radius: 8px;
-            padding: 50px 40px;
-            text-align: center;
-            animation: slideUp 0.6s ease;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            max-width: 640px; width: 100%; background: var(--bg-secondary);
+            border: 1px solid rgba(212,160,61,0.30); border-radius: 10px;
+            padding: 50px 40px; text-align: center; box-shadow: 0 18px 60px rgba(0,0,0,0.28);
         }
         .icon-check {
-            width: 72px;
-            height: 72px;
-            background: rgba(212, 160, 61, 0.12);
-            border: 1.5px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 32px;
-            color: var(--gold);
+            width: 72px; height: 72px; background: rgba(212,160,61,0.12);
+            border: 1.5px solid var(--gold); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; margin: 0 auto 24px;
+            font-size: 32px; color: var(--gold);
         }
-        h1 {
-            font-size: clamp(26px, 5vw, 38px);
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 14px;
-        }
+        h1 { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px; }
         h1 span { color: var(--gold); }
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 16px;
-            max-width: 460px;
-            margin: 0 auto 30px;
-        }
+        .subtitle { color: var(--text-muted); font-size: 16px; max-width: 480px; margin: 0 auto 30px; }
         .next-steps {
-            text-align: left;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 24px;
-            margin-bottom: 28px;
+            text-align: left; background: var(--bg-tertiary); border: 1px solid var(--border-color);
+            border-radius: 7px; padding: 24px; margin-bottom: 28px;
         }
-        .next-steps h3 {
-            font-size: 14px;
-            color: var(--gold);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-        }
-        .next-steps ul {
-            list-style: none;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .next-steps li {
-            padding: 8px 0;
-            padding-left: 28px;
-            position: relative;
-        }
-        .next-steps li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--gold);
-            font-weight: 800;
-        }
+        .next-steps h2 { font-size: 14px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+        .next-steps ul { list-style: none; color: var(--text-muted); font-size: 14px; }
+        .next-steps li { padding: 8px 0 8px 28px; position: relative; }
+        .next-steps li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 800; }
+        .actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 28px;
-            background: var(--gold);
-            color: var(--btn-text);
-            border: none;
-            border-radius: 4px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            text-decoration: none;
-            margin: 5px;
+            display: inline-flex; justify-content: center; align-items: center; padding: 15px 28px;
+            background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: var(--btn-text);
+            border: 1px solid var(--gold); border-radius: 5px; font-weight: 800; font-size: 14px;
+            cursor: pointer; transition: 0.2s ease; text-decoration: none;
         }
-        .btn:hover { background: var(--gold-light); transform: translateY(-2px); }
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border-color); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .contact-small {
-            margin-top: 22px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
+        .contact-small { margin-top: 22px; font-size: 13px; color: var(--text-muted); }
         .contact-small a { color: var(--gold); text-decoration: none; }
-        @media(max-width: 480px) {
-            .thankyou-card { padding: 32px 22px; }
+        .legal { margin-top: 18px; font-size: 11px; color: var(--text-muted); }
+        .legal a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+        @media (prefers-reduced-motion: no-preference) {
+            .thankyou-card { animation: slideUp 0.6s ease; }
+            @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         }
+        @media(max-width: 480px) { .thankyou-card { padding: 34px 22px; } .actions .btn { width: 100%; } }
     </style>
 </head>
 <body>
-    <div class="thankyou-card">
-        <div class="icon-check">✓</div>
+    <main class="thankyou-card">
+        <div class="icon-check" aria-hidden="true">✓</div>
         <h1>Заявка надіслана! <span>Дякуємо</span></h1>
-        <p class="subtitle">
-            Ми отримали твою заявку на пробне заняття. Найближчим часом зв'яжемося з вами, щоб узгодити зручний час і викладача.
-        </p>
+        <p class="subtitle">Ми отримали твою заявку на пробне заняття. Найближчим часом зв'яжемося з тобою, щоб узгодити зручний час і викладача.</p>
 
-        <div class="next-steps">
-            <h3>Що далі?</h3>
+        <section class="next-steps" aria-labelledby="nextStepsTitle">
+            <h2 id="nextStepsTitle">Що далі?</h2>
             <ul>
-                <li>Ми зателефонуємо або напишемо в Telegram протягом декількох годин</li>
-                <li>Уточнимо напрям (гітара, вокал чи фортепіано) та зручний час</li>
-                <li>Забронюємо місце і час у вільних викладачів</li>
+                <li>Зателефонуємо або напишемо в Telegram протягом кількох годин у робочий час</li>
+                <li>Уточнимо напрям: гітара, вокал або фортепіано</li>
+                <li>Узгодимо зручний час і забронюємо заняття з викладачем</li>
             </ul>
+        </section>
+
+        <div class="actions">
+            <a href="index.html" class="btn">← На головну</a>
+            <a href="tel:+380995671384" class="btn btn-outline">Подзвонити зараз</a>
         </div>
 
-        <a href="/" class="btn">← На головну</a>
-        <a href="tel:+380995671384" class="btn btn-outline">Подзвонити зараз</a>
+        <div class="contact-small">Є питання? Напиши в Telegram: <a href="https://t.me/guitar_residence" target="_blank" rel="noopener">@guitar_residence</a></div>
+        <div class="legal">
+            <a href="privacy-policy.html">Політика конфіденційності</a> ·
+            <a href="#" onclick="openCookieSettings(); return false;">Налаштування cookies</a>
+        </div>
+    </main>
 
-        <div class="contact-small">
-            Є питання? Пиши в Telegram: <a href="https://t.me/guitar_residence" target="_blank">@guitar_residence</a>
+    <script>
+        /* Подія спрацьовує лише після успішної відповіді Formspree. */
+        (function () {
+            var pending = null;
+            try { pending = JSON.parse(sessionStorage.getItem('gr_lead_pending') || 'null'); } catch (e) {}
+            if (!pending || !pending.id) return;
+            try { sessionStorage.removeItem('gr_lead_pending'); } catch (e) {}
+
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', {
+                    'event_id': pending.id,
+                    'lead_source': 'website_form'
+                });
+
+                // Після створення Google Ads розкоментуй і заповни:
+                // gtag('event', 'conversion', {
+                //     'send_to': 'AW-XXXXXXXXX/CONVERSION_LABEL',
+                //     'transaction_id': pending.id
+                // });
+            }
+        })();
+    </script>
+
+    <!-- ============================================================
+         COOKIE CONSENT BANNER (Consent Mode v2)
+    ============================================================ -->
+    <style>
+        #cookieBanner {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+            display: none; padding: 16px;
+        }
+        #cookieBanner.show { display: block; }
+        .cc-inner {
+            max-width: 1080px; margin: 0 auto;
+            background: #191a17; color: #f5f2eb;
+            border: 1px solid rgba(212,160,61,0.45); border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            padding: 20px 22px;
+            font-family: "Manrope", sans-serif;
+        }
+        .cc-inner p { font-size: 14px; line-height: 1.6; color: #d8d5cd; margin: 0 0 14px; }
+        .cc-inner a { color: #f1bd59; text-decoration: underline; text-underline-offset: 3px; }
+        .cc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cc-btn {
+            flex: 1; min-width: 150px;
+            padding: 12px 16px; border-radius: 5px; font-size: 13px; font-weight: 800;
+            cursor: pointer; border: 1px solid transparent; transition: 0.2s ease; font-family: inherit;
+        }
+        .cc-accept { background: linear-gradient(135deg,#c48a28,#d4a03d); color: #171208; }
+        .cc-accept:hover { filter: brightness(1.08); }
+        .cc-reject { background: transparent; color: #f5f2eb; border-color: rgba(255,255,255,0.25); }
+        .cc-reject:hover { border-color: #d4a03d; color: #d4a03d; }
+        .cc-settings { background: transparent; color: #a9a69e; border-color: rgba(255,255,255,0.18); }
+        .cc-settings:hover { color: #d4a03d; border-color: #d4a03d; }
+        .cc-detail { display: none; margin: 4px 0 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
+        .cc-detail.show { display: block; }
+        .cc-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 0; }
+        .cc-row strong { font-size: 14px; }
+        .cc-row span { display: block; font-size: 12px; color: #a9a69e; margin-top: 2px; }
+        .cc-switch { position: relative; width: 44px; height: 24px; flex: 0 0 44px; }
+        .cc-switch input { opacity: 0; width: 0; height: 0; }
+        .cc-slider {
+            position: absolute; inset: 0; cursor: pointer; background: #3a3a35;
+            border-radius: 24px; transition: 0.2s;
+        }
+        .cc-slider::before {
+            content: ""; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px;
+            background: #f5f2eb; border-radius: 50%; transition: 0.2s;
+        }
+        .cc-switch input:checked + .cc-slider { background: #c48a28; }
+        .cc-switch input:checked + .cc-slider::before { transform: translateX(20px); }
+        .cc-switch input:disabled + .cc-slider { opacity: 0.6; cursor: not-allowed; }
+        @media (max-width: 520px) { .cc-btn { flex: 1 1 100%; } }
+    </style>
+
+    <div id="cookieBanner" role="dialog" aria-label="Налаштування cookies" aria-live="polite">
+        <div class="cc-inner">
+            <p>
+                Ми використовуємо cookies, щоб сайт коректно працював, а також для аналітики
+                та оцінки ефективності реклами. Ти можеш прийняти всі cookies, відхилити
+                необов'язкові або налаштувати вибір. Докладніше — у
+                <a href="privacy-policy.html">Політиці конфіденційності</a>.
+            </p>
+
+            <div class="cc-detail" id="ccDetail">
+                <div class="cc-row">
+                    <div>
+                        <strong>Необхідні</strong>
+                        <span>Забезпечують базову роботу сайту. Завжди увімкнені.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Аналітичні</strong>
+                        <span>Google Analytics — допомагає покращувати сайт.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAnalytics">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Рекламні</strong>
+                        <span>Google Ads — вимірювання конверсій і ремаркетинг.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAds">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="cc-actions">
+                <button type="button" class="cc-btn cc-accept" id="ccAcceptAll">Прийняти всі</button>
+                <button type="button" class="cc-btn cc-reject" id="ccRejectAll">Відхилити необов'язкові</button>
+                <button type="button" class="cc-btn cc-settings" id="ccToggleSettings">Налаштувати</button>
+            </div>
+            <div class="cc-actions" id="ccSaveWrap" style="display:none;margin-top:10px;">
+                <button type="button" class="cc-btn cc-accept" id="ccSave">Зберегти вибір</button>
+            </div>
         </div>
     </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('cookieBanner');
+            if (!banner) return;
+            var detail = document.getElementById('ccDetail');
+            var saveWrap = document.getElementById('ccSaveWrap');
+            var swAnalytics = document.getElementById('ccAnalytics');
+            var swAds = document.getElementById('ccAds');
+
+            function applyConsent(analytics, ads) {
+                var consent = {
+                    'analytics_storage': analytics ? 'granted' : 'denied',
+                    'ad_storage': ads ? 'granted' : 'denied',
+                    'ad_user_data': ads ? 'granted' : 'denied',
+                    'ad_personalization': ads ? 'granted' : 'denied'
+                };
+                if (typeof gtag === 'function') { gtag('consent', 'update', consent); }
+                try {
+                    localStorage.setItem('gr_consent', JSON.stringify(consent));
+                    localStorage.setItem('gr_consent_set', '1');
+                } catch (e) {}
+            }
+
+            function hide() { banner.classList.remove('show'); }
+            window.openCookieSettings = function () {
+                banner.classList.add('show');
+                detail.classList.add('show');
+                saveWrap.style.display = 'flex';
+                try {
+                    var current = JSON.parse(localStorage.getItem('gr_consent') || '{}');
+                    swAnalytics.checked = current.analytics_storage === 'granted';
+                    swAds.checked = current.ad_storage === 'granted';
+                } catch (e) {}
+            };
+
+            // Показуємо банер, лише якщо вибір ще не зроблено
+            var alreadySet = false;
+            try { alreadySet = localStorage.getItem('gr_consent_set') === '1'; } catch (e) {}
+            if (!alreadySet) { banner.classList.add('show'); }
+
+            document.getElementById('ccAcceptAll').addEventListener('click', function () {
+                applyConsent(true, true); hide();
+            });
+            document.getElementById('ccRejectAll').addEventListener('click', function () {
+                applyConsent(false, false); hide();
+            });
+            document.getElementById('ccToggleSettings').addEventListener('click', function () {
+                detail.classList.toggle('show');
+                saveWrap.style.display = detail.classList.contains('show') ? 'flex' : 'none';
+            });
+            document.getElementById('ccSave').addEventListener('click', function () {
+                applyConsent(swAnalytics.checked, swAds.checked); hide();
+            });
+        })();
+    </script>
+
+
 </body>
 </html>
