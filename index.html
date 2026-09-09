@@ -3,6 +3,39 @@
 <head>
     <meta name="google-site-verification" content="QK4cHbtlRD4CjRqHFoUl75hQLJM_wB_RyLgxqzabCBQ" />
     <meta charset="UTF-8">
+    <!-- ============================================================
+         GOOGLE CONSENT MODE v2 (default = deny until user chooses)
+    ============================================================ -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+        // Відновлюємо попередній вибір користувача (якщо є)
+        (function () {
+            try {
+                var saved = localStorage.getItem('gr_consent');
+                if (saved) { gtag('consent', 'update', JSON.parse(saved)); }
+            } catch (e) {}
+        })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHRPR9SMJF"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-VHRPR9SMJF');
+        // === GOOGLE ADS ===
+        // Коли створиш Google Ads, розкоментуй рядок нижче і встав свій AW-ID:
+        // gtag('config', 'AW-XXXXXXXXX');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пробне заняття за 200 грн — Guitar Residence | Музична школа в Києві</title>
     <meta name="description" content="Акція весь вересень 2026: пробне заняття з гітари, вокалу або фортепіано — 200 грн замість 300 грн. Абонемент на 8 занять — 4800 грн замість 5200 грн. Київ, вул. Хрещатик, 6.">
@@ -832,6 +865,12 @@
         .form-status { text-align: center; font-size: 14px; margin-top: 14px; min-height: 20px; }
         .form-status.error { color: var(--accent-2, #dc2626); }
         .form-status.success { color: var(--gold-light); }
+        .privacy-check {
+            display: flex; align-items: flex-start; gap: 10px;
+            margin: 4px 0 16px; color: var(--text-muted); font-size: 12px; line-height: 1.55;
+        }
+        .privacy-check input { width: 18px; height: 18px; flex: 0 0 18px; margin-top: 1px; accent-color: var(--gold); }
+        .privacy-check a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 
         @media(max-width: 480px) {
             .form-row { grid-template-columns: 1fr; }
@@ -1449,6 +1488,11 @@
                     <textarea id="message" name="message" rows="3" placeholder="Зручний час, питання, улюблені пісні..."></textarea>
                 </div>
 
+                <label class="privacy-check" for="privacyConsent">
+                    <input type="checkbox" id="privacyConsent" name="privacy_consent" value="yes" required>
+                    <span>Я ознайомився / ознайомилася з <a href="privacy-policy.html" target="_blank" rel="noopener">Політикою конфіденційності</a> та погоджуюся на обробку даних для опрацювання моєї заявки.</span>
+                </label>
+
                 <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">
                     Записатися на пробне &rarr;
                 </button>
@@ -1457,7 +1501,7 @@
 
                 <p class="form-note">
                     Натискаючи кнопку, ти погоджуєшся з
-                    <a href="/privacy-policy.html">політикою конфіденційності</a>.
+                    <a href="privacy-policy.html">політикою конфіденційності</a>.
                     Або просто напиши нам у
                     <a href="https://t.me/guitar_residence" target="_blank" rel="noopener">Telegram</a>
                 </p>
@@ -1537,7 +1581,7 @@
 <footer>
     <div class="container footer-inner">
         <div>&copy; 2026 Guitar Residence</div>
-        <div>Гітара · Вокал · Фортепіано · <a href="/privacy-policy.html">Політика конфіденційності</a></div>
+        <div>Гітара · Вокал · Фортепіано · <a href="privacy-policy.html">Політика конфіденційності</a> · <a href="#" onclick="openCookieSettings(); return false;">Налаштування cookies</a></div>
     </div>
 </footer>
 
@@ -1886,6 +1930,15 @@
                 headers: { 'Accept': 'application/json' }
             }).then(function(response) {
                 if (response.ok) {
+                    try {
+                        const leadId = (window.crypto && crypto.randomUUID)
+                            ? crypto.randomUUID()
+                            : 'lead-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+                        sessionStorage.setItem('gr_lead_pending', JSON.stringify({
+                            id: leadId,
+                            createdAt: Date.now()
+                        }));
+                    } catch (storageError) {}
                     window.location.href = 'thank-you.html';
                 } else {
                     response.json().then(function(data) {
@@ -1993,5 +2046,167 @@
         });
     })();
 </script>
+
+    <!-- ============================================================
+         COOKIE CONSENT BANNER (Consent Mode v2)
+    ============================================================ -->
+    <style>
+        #cookieBanner {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+            display: none; padding: 16px;
+        }
+        #cookieBanner.show { display: block; }
+        .cc-inner {
+            max-width: 1080px; margin: 0 auto;
+            background: #191a17; color: #f5f2eb;
+            border: 1px solid rgba(212,160,61,0.45); border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            padding: 20px 22px;
+            font-family: "Manrope", sans-serif;
+        }
+        .cc-inner p { font-size: 14px; line-height: 1.6; color: #d8d5cd; margin: 0 0 14px; }
+        .cc-inner a { color: #f1bd59; text-decoration: underline; text-underline-offset: 3px; }
+        .cc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cc-btn {
+            flex: 1; min-width: 150px;
+            padding: 12px 16px; border-radius: 5px; font-size: 13px; font-weight: 800;
+            cursor: pointer; border: 1px solid transparent; transition: 0.2s ease; font-family: inherit;
+        }
+        .cc-accept { background: linear-gradient(135deg,#c48a28,#d4a03d); color: #171208; }
+        .cc-accept:hover { filter: brightness(1.08); }
+        .cc-reject { background: transparent; color: #f5f2eb; border-color: rgba(255,255,255,0.25); }
+        .cc-reject:hover { border-color: #d4a03d; color: #d4a03d; }
+        .cc-settings { background: transparent; color: #a9a69e; border-color: rgba(255,255,255,0.18); }
+        .cc-settings:hover { color: #d4a03d; border-color: #d4a03d; }
+        .cc-detail { display: none; margin: 4px 0 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
+        .cc-detail.show { display: block; }
+        .cc-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 0; }
+        .cc-row strong { font-size: 14px; }
+        .cc-row span { display: block; font-size: 12px; color: #a9a69e; margin-top: 2px; }
+        .cc-switch { position: relative; width: 44px; height: 24px; flex: 0 0 44px; }
+        .cc-switch input { opacity: 0; width: 0; height: 0; }
+        .cc-slider {
+            position: absolute; inset: 0; cursor: pointer; background: #3a3a35;
+            border-radius: 24px; transition: 0.2s;
+        }
+        .cc-slider::before {
+            content: ""; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px;
+            background: #f5f2eb; border-radius: 50%; transition: 0.2s;
+        }
+        .cc-switch input:checked + .cc-slider { background: #c48a28; }
+        .cc-switch input:checked + .cc-slider::before { transform: translateX(20px); }
+        .cc-switch input:disabled + .cc-slider { opacity: 0.6; cursor: not-allowed; }
+        @media (max-width: 520px) { .cc-btn { flex: 1 1 100%; } }
+    </style>
+
+    <div id="cookieBanner" role="dialog" aria-label="Налаштування cookies" aria-live="polite">
+        <div class="cc-inner">
+            <p>
+                Ми використовуємо cookies, щоб сайт коректно працював, а також для аналітики
+                та оцінки ефективності реклами. Ти можеш прийняти всі cookies, відхилити
+                необов'язкові або налаштувати вибір. Докладніше — у
+                <a href="privacy-policy.html">Політиці конфіденційності</a>.
+            </p>
+
+            <div class="cc-detail" id="ccDetail">
+                <div class="cc-row">
+                    <div>
+                        <strong>Необхідні</strong>
+                        <span>Забезпечують базову роботу сайту. Завжди увімкнені.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Аналітичні</strong>
+                        <span>Google Analytics — допомагає покращувати сайт.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAnalytics">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Рекламні</strong>
+                        <span>Google Ads — вимірювання конверсій і ремаркетинг.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAds">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="cc-actions">
+                <button type="button" class="cc-btn cc-accept" id="ccAcceptAll">Прийняти всі</button>
+                <button type="button" class="cc-btn cc-reject" id="ccRejectAll">Відхилити необов'язкові</button>
+                <button type="button" class="cc-btn cc-settings" id="ccToggleSettings">Налаштувати</button>
+            </div>
+            <div class="cc-actions" id="ccSaveWrap" style="display:none;margin-top:10px;">
+                <button type="button" class="cc-btn cc-accept" id="ccSave">Зберегти вибір</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('cookieBanner');
+            if (!banner) return;
+            var detail = document.getElementById('ccDetail');
+            var saveWrap = document.getElementById('ccSaveWrap');
+            var swAnalytics = document.getElementById('ccAnalytics');
+            var swAds = document.getElementById('ccAds');
+
+            function applyConsent(analytics, ads) {
+                var consent = {
+                    'analytics_storage': analytics ? 'granted' : 'denied',
+                    'ad_storage': ads ? 'granted' : 'denied',
+                    'ad_user_data': ads ? 'granted' : 'denied',
+                    'ad_personalization': ads ? 'granted' : 'denied'
+                };
+                if (typeof gtag === 'function') { gtag('consent', 'update', consent); }
+                try {
+                    localStorage.setItem('gr_consent', JSON.stringify(consent));
+                    localStorage.setItem('gr_consent_set', '1');
+                } catch (e) {}
+            }
+
+            function hide() { banner.classList.remove('show'); }
+            window.openCookieSettings = function () {
+                banner.classList.add('show');
+                detail.classList.add('show');
+                saveWrap.style.display = 'flex';
+                try {
+                    var current = JSON.parse(localStorage.getItem('gr_consent') || '{}');
+                    swAnalytics.checked = current.analytics_storage === 'granted';
+                    swAds.checked = current.ad_storage === 'granted';
+                } catch (e) {}
+            };
+
+            // Показуємо банер, лише якщо вибір ще не зроблено
+            var alreadySet = false;
+            try { alreadySet = localStorage.getItem('gr_consent_set') === '1'; } catch (e) {}
+            if (!alreadySet) { banner.classList.add('show'); }
+
+            document.getElementById('ccAcceptAll').addEventListener('click', function () {
+                applyConsent(true, true); hide();
+            });
+            document.getElementById('ccRejectAll').addEventListener('click', function () {
+                applyConsent(false, false); hide();
+            });
+            document.getElementById('ccToggleSettings').addEventListener('click', function () {
+                detail.classList.toggle('show');
+                saveWrap.style.display = detail.classList.contains('show') ? 'flex' : 'none';
+            });
+            document.getElementById('ccSave').addEventListener('click', function () {
+                applyConsent(swAnalytics.checked, swAds.checked); hide();
+            });
+        })();
+    </script>
+
 </body>
 </html>
