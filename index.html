@@ -4,8 +4,8 @@
     <meta name="google-site-verification" content="QK4cHbtlRD4CjRqHFoUl75hQLJM_wB_RyLgxqzabCBQ" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пробне заняття 200 грн — Guitar Residence | Музична школа Київ</title>
-    <meta name="description" content="Акція до 30 вересня! Пробне заняття з гітари, вокалу чи фортепіано всього 200 грн замість 300 грн. Абонемент 8 занять — 4800 грн амість 5200 грн. Центр Києва, Хрещатик 6.">
+    <title>Пробне заняття за 200 грн — Guitar Residence | Музична школа в Києві</title>
+    <meta name="description" content="Акція весь вересень 2026: пробне заняття з гітари, вокалу або фортепіано — 200 грн замість 300 грн. Абонемент на 8 занять — 4800 грн замість 5200 грн. Київ, вул. Хрещатик, 6.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,6 +35,8 @@
 
             --review-bg: #f1eee7;
             --review-text: #24231f;
+            --review-muted: #625f57;
+            --review-border: rgba(0, 0, 0, 0.12);
             --btn-text: #171208;
             --image-overlay: linear-gradient(transparent 25%, rgba(0,0,0,0.90) 90%);
         }
@@ -53,6 +55,8 @@
             --hover-bg: rgba(0, 0, 0, 0.05);
             --review-bg: #ffffff;
             --review-text: #121311;
+            --review-muted: #666666;
+            --review-border: rgba(0, 0, 0, 0.10);
         }
 
         [data-season="autumn"] {
@@ -74,9 +78,13 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         a { color: inherit; text-decoration: none; }
-        button, input, select { font-family: inherit; }
+        button, input, select, textarea { font-family: inherit; }
         .container { width: min(var(--container), calc(100% - 40px)); margin: 0 auto; }
         .section { padding: 110px 0; }
+
+        /* Anchor offset so fixed header/promo don't overlap targets */
+        [id] { scroll-margin-top: calc(var(--promo-height) + 96px); }
+
         .label {
             color: var(--gold);
             font-size: 12px;
@@ -89,6 +97,16 @@
         .section-subtitle { max-width: 620px; color: var(--text-muted); font-size: 17px; margin-top: 20px; }
         .center { text-align: center; }
         .center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+        /* Global visible focus for accessibility */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
+        }
 
         /* =========================================================
            BUTTONS (PREMIUM GOLD PALETTE)
@@ -116,7 +134,6 @@
         }
         .btn-outline:hover { background: var(--hover-bg); border-color: var(--gold); color: var(--gold); }
 
-        /* Primary gold CTA with subtle glow pulse */
         .btn-primary {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             border: none;
@@ -134,7 +151,6 @@
             100% { box-shadow: 0 4px 20px rgba(212, 160, 61, 0.25); }
         }
 
-        /* Secondary elegant button */
         .btn-secondary {
             background: transparent;
             color: var(--gold);
@@ -146,7 +162,7 @@
         }
 
         /* =========================================================
-           PROMO BAR (PREMIUM DARK GOLD) - ВИПРАВЛЕНО
+           PROMO BAR
         ========================================================= */
         .promo-bar {
             position: fixed;
@@ -158,7 +174,7 @@
             border-bottom: 1px solid var(--gold);
             color: var(--text-main);
             text-align: center;
-            padding: 12px 20px;
+            padding: 12px 44px 12px 20px;
             font-size: 14px;
             font-weight: 700;
             display: flex;
@@ -166,9 +182,8 @@
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
-            min-height: var(--promo-height);
-            height: auto;
         }
+        .promo-bar[hidden] { display: none; }
         .promo-bar strong { color: var(--gold); font-size: 15px; }
         .promo-bar b { color: var(--gold-light); }
         .promo-timer {
@@ -184,7 +199,7 @@
         }
         .promo-close {
             position: absolute;
-            right: 15px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
@@ -194,11 +209,25 @@
             cursor: pointer;
             opacity: 0.6;
             transition: 0.2s;
+            width: 32px;
+            height: 32px;
+            line-height: 1;
         }
         .promo-close:hover { opacity: 1; color: var(--gold); }
 
+        /* Hide promo-related elements after the sale ends */
+        .promo-expired .promo-bar,
+        .promo-expired .hero-promo-badge,
+        .promo-expired .scarcity-bar,
+        .promo-expired .sale-ends,
+        .promo-expired .plan-badge-sale,
+        .promo-expired .old-price,
+        .promo-expired .save-tag,
+        .promo-expired .promo-old-price,
+        .promo-expired .promo-save { display: none !important; }
+
         /* =========================================================
-           HEADER & NAV - ВИПРАВЛЕНО
+           HEADER & NAV
         ========================================================= */
         header {
             position: fixed;
@@ -209,7 +238,7 @@
             background: var(--header-bg);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, top 0.2s ease;
         }
         .navbar {
             height: 76px;
@@ -277,7 +306,6 @@
         .proof-item strong { display: block; font-size: 19px; }
         .proof-item span { display: block; color: var(--text-muted); font-size: 12px; margin-top: 2px; }
 
-        /* Promo badge in hero */
         .hero-promo-badge {
             display: inline-flex;
             flex-direction: column;
@@ -390,9 +418,8 @@
             display: flex; gap: 12px; align-items: flex-start;
             margin-top: 24px; color: var(--text-main); font-size: 14px;
         }
-        .trial-note span { color: var(--gold); font-weight: 800; }
+        .trial-note span { color: var(--gold); font-weight: 800; white-space: nowrap; }
 
-        /* Scarcity bar (premium gold accent) */
         .scarcity-bar {
             background: rgba(212, 160, 61, 0.08);
             border: 1px solid rgba(212, 160, 61, 0.25);
@@ -424,9 +451,9 @@
         ========================================================= */
         .direction-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 55px; }
         .direction {
-            position: relative; min-height: 420px; overflow: hidden;
+            position: relative; min-height: 420px; overflow: hidden; display: block;
             border: 1px solid var(--border-color); border-radius: 5px;
-            background: var(--bg-secondary); cursor: pointer;
+            background: var(--bg-secondary); cursor: pointer; color: inherit;
         }
         .direction-image { position: absolute; inset: 0; background-size: cover; background-position: center; transition: 0.5s; }
         .direction:hover .direction-image { transform: scale(1.05); }
@@ -442,7 +469,7 @@
         .direction-number { color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: 2px; }
         .direction h3 { color: #ffffff; font-size: 31px; margin: 8px 0; }
         .direction p { color: #dddddd; font-size: 14px; margin-bottom: 20px; }
-        .direction a { color: var(--gold-light); font-weight: 800; font-size: 13px; padding: 10px 0; display: inline-block; }
+        .direction .direction-link { color: var(--gold-light); font-weight: 800; font-size: 13px; padding: 10px 0; display: inline-block; }
 
         /* =========================================================
            USP
@@ -558,7 +585,7 @@
         .plan-count { color: var(--gold); font-size: 48px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
         .plan-title { margin: 10px 0 24px; font-size: 20px; }
         .plan-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; color: var(--text-muted); font-size: 13px; }
-        .plan-list li::before { content: "✓"; margin-right: 9px; color: var(--gold); }
+        .plan-list li::before { content: "\2713"; margin-right: 9px; color: var(--gold); }
         .plan-price { margin-top: auto; padding-top: 28px; }
         .plan-price strong { color: var(--gold); font-size: 35px; letter-spacing: -1px; }
         .plan-price .old-price {
@@ -593,16 +620,16 @@
         .review {
             display: flex; flex-direction: column; padding: 30px;
             background: var(--review-bg); color: var(--review-text);
-            border: 1px solid var(--border-color); border-radius: 5px; min-height: 100%;
+            border: 1px solid var(--review-border); border-radius: 5px; min-height: 100%;
         }
         .review-top { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 22px; }
         .stars { color: #a9791c; font-size: 15px; letter-spacing: 2px; line-height: 1; }
-        .review-direction { color: var(--text-muted); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+        .review-direction { color: var(--review-muted); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
         .review-text { flex: 1; }
         .review-text p { margin: 0; font-size: 15px; line-height: 1.7; }
-        .review-author { display: flex; flex-direction: column; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border-color); }
+        .review-author { display: flex; flex-direction: column; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--review-border); }
         .review-author strong { font-size: 14px; font-weight: 800; }
-        .review-author span { margin-top: 3px; color: var(--text-muted); font-size: 11px; }
+        .review-author span { margin-top: 3px; color: var(--review-muted); font-size: 11px; }
 
         /* =========================================================
            FAQ
@@ -640,10 +667,11 @@
         .map { padding: 0; overflow: hidden; border-radius: 5px; min-height: 420px; }
         .map iframe { display: block; width: 100%; height: 100%; min-height: 420px; border: 0; }
         footer { padding: 30px 0; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 12px; }
-        .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .footer-inner a { color: var(--gold); }
 
         /* =========================================================
-           FLOATING CONTACT BUTTONS (PREMIUM GOLD)
+           FLOATING CONTACT BUTTONS
         ========================================================= */
         .floating-contacts {
             position: fixed;
@@ -759,6 +787,58 @@
         .mobile-sticky-bar .btn { flex: 1; font-size: 15px; padding: 14px; min-height: 48px; }
 
         /* =========================================================
+           FORM STYLES
+        ========================================================= */
+        .form-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .form-layout { max-width: 560px; margin: 0 auto; padding: 50px 0; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-size: 15px;
+            font-family: "Manrope", sans-serif;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--gold); }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: rgba(169, 166, 158, 0.5); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-submit { width: 100%; margin-top: 8px; padding: 16px; font-size: 15px; }
+        .form-submit:disabled { opacity: 0.6; cursor: not-allowed; animation: none; }
+        .form-note { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+        .form-note a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+        .form-status { text-align: center; font-size: 14px; margin-top: 14px; min-height: 20px; }
+        .form-status.error { color: var(--accent-2, #dc2626); }
+        .form-status.success { color: var(--gold-light); }
+
+        @media(max-width: 480px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-layout { padding: 35px 0; }
+        }
+
+        /* =========================================================
            MOBILE & TABLET
         ========================================================= */
         @media(max-width: 950px) {
@@ -793,7 +873,6 @@
             .review:last-child { grid-column: 1 / -1; }
             .contact-grid { grid-template-columns: 1fr; }
             .trial-layout { grid-template-columns: 1fr; gap: 35px; }
-            .promo-close { display: none; }
         }
 
         @media(max-width: 600px) {
@@ -840,7 +919,7 @@
             body { padding-bottom: 75px; }
             .floating-contacts { bottom: 80px; right: 10px; }
             .floating-btn { width: 48px; height: 48px; font-size: 20px; }
-            .promo-bar { font-size: 12px; padding: 10px; top: 0; }
+            .promo-bar { font-size: 12px; padding: 10px 40px 10px 12px; top: 0; }
             .promo-bar strong { font-size: 13px; }
             header { top: var(--promo-height); }
             .hero-content { padding-top: 60px; }
@@ -849,96 +928,36 @@
         }
 
         /* =========================================================
-           FORM STYLES
+           REDUCED MOTION
         ========================================================= */
-        .form-section {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .form-layout {
-            max-width: 560px;
-            margin: 0 auto;
-            padding: 50px 0;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-main);
-            font-size: 15px;
-            font-family: "Manrope", sans-serif;
-            transition: border-color 0.2s ease;
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--gold);
-        }
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(169, 166, 158, 0.5);
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        .form-submit {
-            width: 100%;
-            margin-top: 8px;
-            padding: 16px;
-            font-size: 15px;
-        }
-        .form-note {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 14px;
-        }
-        .form-note a {
-            color: var(--gold);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-        @media(max-width: 480px) {
-            .form-row { grid-template-columns: 1fr; }
-            .form-layout { padding: 35px 0; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
 
 <!-- ======================================================
-     SEASONAL EFFECTS CANVAS & PROMO BAR
+     SEASONAL EFFECTS CANVAS
 ====================================================== -->
-<canvas id="seasonalCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></canvas>
+<canvas id="seasonalCanvas" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></canvas>
 
+<!-- ======================================================
+     PROMO BAR
+====================================================== -->
 <div class="promo-bar" id="promoBar">
-    <strong>Акція до 30 вересня:</strong>
+    <strong>Акція весь вересень:</strong>
     <span>Пробне заняття <b>200 грн</b> замість 300 грн</span>
     <span style="opacity:0.5;">|</span>
     <span>Абонемент 8 занять <b>4800 грн</b> замість 5200 грн</span>
     <span style="opacity:0.5;">|</span>
-    <span class="promo-timer" id="promoTimer">Залишилось: обчислюємо...</span>
-    <button class="promo-close" onclick="closePromoBar()" aria-label="Закрити">×</button>
+    <span class="promo-timer" id="promoTimer">Залишилося: обчислюємо...</span>
+    <button class="promo-close" onclick="closePromoBar()" aria-label="Закрити">&times;</button>
 </div>
 
 <!-- ======================================================
@@ -947,12 +966,12 @@
 <header id="mainHeader">
     <div class="container navbar">
         <a href="#home" class="logo">
-            <span class="logo-icon">♫</span>
+            <span class="logo-icon">&#9834;</span>
             <span>GUITAR<small>RESIDENCE</small></span>
         </a>
 
         <nav class="nav" id="mainNav">
-            <button class="nav-close" aria-label="Закрити меню" onclick="closeMenu()">×</button>
+            <button class="nav-close" aria-label="Закрити меню" onclick="closeMenu()">&times;</button>
             <a href="#directions">Напрями</a>
             <a href="#first-lesson">Перше заняття</a>
             <a href="#about">Про нас</a>
@@ -963,10 +982,10 @@
         </nav>
 
         <div class="header-actions">
-            <button id="theme-toggle" class="theme-toggle" aria-label="Перемкнути тему">🌓</button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Перемкнути тему">&#127765;</button>
             <a class="header-phone" href="tel:+380995671384">+38 (099) 567 13 84</a>
-            <a href="#booking" class="btn">Записатися</a>
-            <button class="menu" onclick="toggleMenu()" aria-label="Відкрити меню">☰</button>
+            <a href="#booking-form" class="btn">Записатися</a>
+            <button class="menu" onclick="toggleMenu()" aria-label="Відкрити меню">&#9776;</button>
         </div>
     </div>
 </header>
@@ -977,7 +996,7 @@
 <section class="hero" id="home">
     <div class="container">
         <div class="hero-content">
-            <div class="label">МУЗИЧНА ШКОЛА СТУДІЯ · КИЇВ</div>
+            <div class="label">МУЗИЧНА ШКОЛА-СТУДІЯ · КИЇВ</div>
             <h1>Навчимо грати <span>улюблені пісні</span> — навіть з нуля</h1>
             <p class="hero-description">
                 Індивідуальні заняття з гітари, вокалу та фортепіано в центрі Києва й онлайн. Починаємо з музики, яку ти хочеш грати, а не з місяців нудної теорії.
@@ -985,7 +1004,7 @@
 
             <!-- Promo Badge -->
             <div class="hero-promo-badge">
-                <div class="promo-title">Акція до 30 вересня включно</div>
+                <div class="promo-title">Акція весь вересень</div>
                 <div class="promo-price-row">
                     <span class="promo-new-price">200 грн</span>
                     <span class="promo-old-price">300 грн</span>
@@ -996,14 +1015,14 @@
             </div>
 
             <div class="hero-actions">
-                <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary">Записатись на пробне →</a>
-                <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+                <a href="#booking-form" class="btn btn-primary">Записатися на пробне &rarr;</a>
+                <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
             </div>
 
             <div class="hero-proof">
                 <div class="proof-item">
-                    <strong>60 хв</strong>
-                    <span>індивідуальний урок</span>
+                    <strong>45 хв</strong>
+                    <span>пробне заняття</span>
                 </div>
                 <div class="proof-item">
                     <strong>1 на 1</strong>
@@ -1046,17 +1065,17 @@
             <div class="scarcity-bar">
                 <div class="dot"></div>
                 <div>
-                    <strong>Залишилось 7 місць</strong> на пробні заняття за акційною ціною 200 грн до кінця вересня
+                    <strong>Кількість місць обмежена</strong> — пробні заняття за акційною ціною 200 грн діють до кінця вересня
                 </div>
             </div>
 
             <div class="trial-note">
-                <span>60 хв</span>
-                <div>Індивідуальний урок 1 на 1: спочатку зрозуміємо твою ціль, а тоді складемо план наступних занять.</div>
+                <span>45 хв</span>
+                <div>Пробне заняття один на один: спочатку зрозуміємо твою ціль, а тоді складемо план наступних занять.</div>
             </div>
             <div class="hero-actions" style="margin-top:24px;">
-                <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary">Записатись на пробне →</a>
-                <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+                <a href="#booking-form" class="btn btn-primary">Записатися на пробне &rarr;</a>
+                <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
             </div>
         </div>
         <div>
@@ -1064,7 +1083,7 @@
                 <article class="trial-step">
                     <b>01 · ЗНАЙОМСТВО</b>
                     <h3>Обговорюємо твою ціль</h3>
-                    <p>Улюблені пісні, рівень, довід і формат, у якому тобі буде комфортно вчитися.</p>
+                    <p>Улюблені пісні, рівень, досвід і формат, у якому тобі буде комфортно вчитися.</p>
                 </article>
                 <article class="trial-step">
                     <b>02 · ПРАКТИКА</b>
@@ -1091,35 +1110,35 @@
         <p class="section-subtitle">Обирай інструмент — програму підлаштуємо під твій рівень, цілі та музику, яку ти любиш.</p>
 
         <div class="direction-grid">
-            <article class="direction" onclick="changeTeacher('roman'); document.getElementById('teacher').scrollIntoView({behavior:'smooth'});">
+            <a class="direction" href="#teacher" data-teacher-target="roman" aria-label="Переглянути викладачів гітари">
                 <div class="direction-image guitar"></div>
                 <div class="direction-content">
                     <div class="direction-number">01 · ГІТАРА</div>
                     <h3>Гітара</h3>
                     <p>Акустична · електрогітара · класична</p>
-                    <a href="#teacher">Обрати викладача →</a>
+                    <span class="direction-link">Обрати викладача &rarr;</span>
                 </div>
-            </article>
+            </a>
 
-            <article class="direction" onclick="changeTeacher('kateryna'); document.getElementById('teacher').scrollIntoView({behavior:'smooth'});">
+            <a class="direction" href="#teacher" data-teacher-target="kateryna" aria-label="Переглянути викладачів вокалу">
                 <div class="direction-image vocal"></div>
                 <div class="direction-content">
                     <div class="direction-number">02 · ВОКАЛ</div>
                     <h3>Вокал</h3>
                     <p>Голос · дихання · інтонація · сцена</p>
-                    <a href="#teacher">Обрати викладача →</a>
+                    <span class="direction-link">Обрати викладача &rarr;</span>
                 </div>
-            </article>
+            </a>
 
-            <article class="direction" onclick="changeTeacher('vladyslav'); document.getElementById('teacher').scrollIntoView({behavior:'smooth'});">
+            <a class="direction" href="#teacher" data-teacher-target="vladyslav" aria-label="Переглянути викладачів фортепіано">
                 <div class="direction-image piano"></div>
                 <div class="direction-content">
                     <div class="direction-number">03 · ФОРТЕПІАНО</div>
                     <h3>Фортепіано</h3>
                     <p>Класика · сучасна музика · практика</p>
-                    <a href="#teacher">Обрати викладача →</a>
+                    <span class="direction-link">Обрати викладача &rarr;</span>
                 </div>
-            </article>
+            </a>
         </div>
     </div>
 </section>
@@ -1148,7 +1167,7 @@
             <div class="usp-item">
                 <div class="usp-number">03</div>
                 <h3>Живі музиканти</h3>
-                <p>Викладачи не просто пояснюють. Вони самі грають, виступають і розуміють реальну музику.</p>
+                <p>Викладачі не просто пояснюють. Вони самі грають, виступають і розуміють реальну музику.</p>
             </div>
             <div class="usp-item">
                 <div class="usp-number">04</div>
@@ -1174,13 +1193,13 @@
                 <p id="mainTeacherDescription">Моя задача — не просто показати, як поставити пальці на струни. Я хочу, щоб ти якомога швидше почав грати музику самостійно.</p>
                 <div class="teacher-facts">
                     <div class="fact"><strong id="fact1Value">8+</strong><span id="fact1Label">років викладання</span></div>
-                    <div class="fact"><strong id="fact2Value">1 → 1</strong><span id="fact2Label">індивідуальний формат</span></div>
+                    <div class="fact"><strong id="fact2Value">1 &rarr; 1</strong><span id="fact2Label">індивідуальний формат</span></div>
                     <div class="fact"><strong id="fact3Value">100%</strong><span id="fact3Label">програма під учня</span></div>
                     <div class="fact"><strong id="fact4Value">LIVE</strong><span id="fact4Label">концертний досвід</span></div>
                 </div>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                    <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary" id="teacherBookingButton">Записатися</a>
-                    <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+                    <a href="#booking-form" class="btn btn-primary" id="teacherBookingButton">Записатися</a>
+                    <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
                 </div>
             </div>
         </div>
@@ -1244,7 +1263,7 @@
         <div class="review-grid">
             <article class="review">
                 <div class="review-top">
-                    <div class="stars">★★★★★</div>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <div class="review-direction">ГІТАРА</div>
                 </div>
                 <div class="review-text">
@@ -1257,11 +1276,11 @@
             </article>
             <article class="review">
                 <div class="review-top">
-                    <div class="stars">★★★★★</div>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <div class="review-direction">ГІТАРА</div>
                 </div>
                 <div class="review-text">
-                    <p>Гру на гітарі я намагалася освоїти майже рік самостійно. Зрештою вирішила зайнятися пошуком школи, і друзі порадили Guitar Residence. За доволі незначний час результати вже були очевидні — те, що я грала, стало схоже на музику.</p>
+                    <p>Гру на гітарі я намагалася освоїти майже рік самостійно. Зрештою вирішила зайнятися пошуком школи, і друзі порадили Guitar Residence. За доволі незначний час результати вже були очевидні — те, що я грала, стало схожим на музику.</p>
                 </div>
                 <div class="review-author">
                     <strong>Софія</strong>
@@ -1270,11 +1289,11 @@
             </article>
             <article class="review">
                 <div class="review-top">
-                    <div class="stars">★★★★★</div>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <div class="review-direction">ФОРТЕПІАНО</div>
                 </div>
                 <div class="review-text">
-                    <p>Я хотів навчитися грати для себе, без акаемічної програми та складних етюдів. Владислав підібрав програму під те, що мені реально подобається. Тепер після кількох місяців занять я можу просто зіграти музику для себе.</p>
+                    <p>Я хотів навчитися грати для себе, без академічної програми та складних етюдів. Владислав підібрав програму під те, що мені реально подобається. Тепер після кількох місяців занять я можу просто зіграти музику для себе.</p>
                 </div>
                 <div class="review-author">
                     <strong>Олександр</strong>
@@ -1293,10 +1312,10 @@
         <div class="center">
             <div class="label">ВАРТІСТЬ ЗАНЯТЬ</div>
             <h2 class="section-title">Обери свій темп навчання.</h2>
-            <p class="section-subtitle">Усі заняття індивідуальні та тривають 60 хвилин. Чим регулярніше займаєшся — тим вигідніша вартість одного уроку.</p>
+            <p class="section-subtitle">Пробне заняття триває 45 хвилин, усі регулярні заняття — 60 хвилин та проходять індивідуально. Чим регулярніше займаєшся — тим вигідніша вартість одного уроку.</p>
         </div>
 
-        <div class="sale-ends">Акційні ціни діють до 30 вересня включно</div>
+        <div class="sale-ends">Акційні ціни діють весь вересень</div>
 
         <div class="price-card">
             <div class="price-row">
@@ -1310,7 +1329,7 @@
                     <ul class="plan-list">
                         <li>4 уроки по 60 хв</li>
                         <li>1 раз на тиждень</li>
-                        <li>Підходить для старту та знайомства з гітарою</li>
+                        <li>Підходить для комфортного старту</li>
                     </ul>
                     <div class="plan-price"><strong>2 800 грн</strong><span>700 грн / урок</span></div>
                 </article>
@@ -1322,8 +1341,8 @@
                     <ul class="plan-list">
                         <li>8 уроків по 60 хв</li>
                         <li>2 рази на тиждень</li>
-                        <li>Оптимальний формат для стабільного проресу</li>
-                        <li style="color:var(--gold);font-weight:700;">Акція до 30.09: зеконом 400 грн</li>
+                        <li>Оптимальний формат для стабільного прогресу</li>
+                        <li style="color:var(--gold);font-weight:700;">Акція вересня: заощадь 400 грн</li>
                     </ul>
                     <div class="plan-price">
                         <strong>4 800 грн</strong>
@@ -1346,8 +1365,8 @@
             </div>
             <p class="price-helper">Абонементи розраховані на один місяць. Допоможемо обрати формат під твою ціль і графік.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary" style="flex:1;min-width:200px;">Записатися за акційною ціною →</a>
-                <a href="tel:+380995671384" class="btn btn-secondary" style="flex:1;min-width:200px;">Подзвонити</a>
+                <a href="#booking-form" class="btn btn-primary" style="flex:1;min-width:200px;">Записатися за акційною ціною &rarr;</a>
+                <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary" style="flex:1;min-width:200px;">Написати в Telegram</a>
             </div>
         </div>
     </div>
@@ -1365,20 +1384,19 @@
         <div class="faq-list">
             <article class="faq-item">
                 <h3>Чи можна прийти без досвіду?</h3>
-                <p>Так. Перше заняття допоможе спокійно почати з нуля, познайомитися з викладачем і зрозуміти свій темп.</p>
+                <p>Так. Більшість наших учнів починають із нуля. На першому занятті викладач визначить комфортний темп і допоможе зробити перші практичні кроки.</p>
             </article>
             <article class="faq-item">
-                <h3>Чи потрібен свій інструмент?</h3>
-                <p>Якщо інструмент уже є — бери його із собою. Якщо ні - в нас є всі види інструментів, тож спробуєш всі і обереш свій напрям, а вчителі підкажуть який інструмент краще придбати.</p>
+                <h3>Чи потрібен власний інструмент?</h3>
+                <p>Не обов'язково. У студії є інструменти для занять. На пробному уроці ти зможеш спробувати різні варіанти, а викладач допоможе обрати інструмент для подальшого навчання.</p>
             </article>
             <article class="faq-item">
                 <h3>Як обрати напрям і викладача?</h3>
-                <p>Розкажи, що хоче виконувати й чого очікуєш від занять. Ми запропонуємо напрям і викладача, які найкраще відповідають твоїм цілям.</p>
+                <p>Розкажи, яку музику хочеш виконувати, чи маєш досвід і чого очікуєш від занять. Ми запропонуємо напрям і викладача, які найкраще відповідають твоїм цілям.</p>
             </article>
         </div>
     </div>
 </section>
-
 
 <!-- ======================================================
      FORM SECTION
@@ -1387,7 +1405,7 @@
     <div class="container">
         <div class="center" style="margin-bottom: 35px;">
             <div class="label">ЗАПИС</div>
-            <h2 class="section-title" style="font-size: clamp(28px, 4vw, 42px);">Записатись на пробне заняття</h2>
+            <h2 class="section-title" style="font-size: clamp(28px, 4vw, 42px);">Записатися на пробне заняття</h2>
             <p class="section-subtitle">Заповни форму — і ми зв'яжемося з тобою, щоб узгодити час і викладача.</p>
         </div>
 
@@ -1397,11 +1415,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Ім'я</label>
-                        <input type="text" id="name" name="name" placeholder="Наприклад, Олексій" required>
+                        <input type="text" id="name" name="name" placeholder="Наприклад, Олексій" autocomplete="name" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Телефон</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+38 (0XX) XXX XX XX" required>
+                        <input type="tel" id="phone" name="phone" placeholder="+38 (0XX) XXX XX XX" autocomplete="tel" inputmode="tel" pattern="\+38 \(0\d{2}\) \d{3} \d{2} \d{2}" title="Введи номер у форматі +38 (0XX) XXX XX XX" required>
                     </div>
                 </div>
 
@@ -1412,7 +1430,7 @@
                         <option value="guitar">Гітара</option>
                         <option value="vocal">Вокал</option>
                         <option value="piano">Фортепіано</option>
-                        <option value="not_sure">Ще не вирішив</option>
+                        <option value="not_sure">Потрібна допомога з вибором</option>
                     </select>
                 </div>
 
@@ -1420,9 +1438,9 @@
                     <label for="experience">Досвід</label>
                     <select id="experience" name="experience">
                         <option value="" disabled selected>Твій досвід</option>
-                        <option value="zero">Повний нуль, з нуля</option>
-                        <option value="beginner">Трохи пробував(ла) самостійно</option>
-                        <option value="intermediate">Вже займався(лась), хочу продовжити</option>
+                        <option value="zero">Починаю з нуля</option>
+                        <option value="beginner">Є невеликий самостійний досвід</option>
+                        <option value="intermediate">Уже займався / займалася раніше</option>
                     </select>
                 </div>
 
@@ -1431,20 +1449,23 @@
                     <textarea id="message" name="message" rows="3" placeholder="Зручний час, питання, улюблені пісні..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary form-submit">
-                    Записатись на пробне →
+                <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">
+                    Записатися на пробне &rarr;
                 </button>
 
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
                 <p class="form-note">
-                    Натискаючи кнопку, ти погоджуєшся з 
-                    <a href="#">політикою конфіденційності</a>. 
-                    Або просто напиши нам у 
-                    <a href="https://t.me/guitar_residence" target="_blank">Telegram</a>
+                    Натискаючи кнопку, ти погоджуєшся з
+                    <a href="/privacy-policy.html">політикою конфіденційності</a>.
+                    Або просто напиши нам у
+                    <a href="https://t.me/guitar_residence" target="_blank" rel="noopener">Telegram</a>
                 </p>
             </form>
         </div>
     </div>
 </section>
+
 <!-- ======================================================
      CTA
 ====================================================== -->
@@ -1460,16 +1481,16 @@
                 <div class="promo-price-row">
                     <span class="promo-new-price">200 грн</span>
                     <span class="promo-old-price">300 грн</span>
-                    <span class="promo-save">−33%</span>
+                    <span class="promo-save">&minus;33%</span>
                 </div>
                 <div class="promo-note">Пробне заняття 45 хв. До кінця акції: <span id="ctaTimer">...</span></div>
             </div>
 
             <div class="cta-buttons">
-                <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-primary">Записатися в Telegram →</a>
-                <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+                <a href="#booking-form" class="btn btn-primary">Записатися на пробне &rarr;</a>
+                <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
             </div>
-            <div class="cta-note">Або напиши нам у Instagram: <a href="https://www.instagram.com/guitar_residence/" target="_blank" rel="noopener">@guitar_residence</a></div>
+            <div class="cta-note">Або напиши нам в Instagram: <a href="https://www.instagram.com/guitar_residence/" target="_blank" rel="noopener">@guitar_residence</a></div>
         </div>
     </div>
 </section>
@@ -1484,14 +1505,14 @@
                 <div class="label">КОНТАКТИ</div>
                 <h2 class="section-title">Guitar Residence</h2>
                 <div class="contact-list">
-                    <div class="contact-item"><span>АДРЕС</span><strong>Київ · Хрещатик 6</strong></div>
+                    <div class="contact-item"><span>АДРЕСА</span><strong>Київ · Хрещатик 6</strong></div>
                     <div class="contact-item"><span>ТЕЛЕФОН</span><strong><a href="tel:+380995671384">+38 (099) 567 13 84</a></strong></div>
                     <div class="contact-item"><span>INSTAGRAM</span><strong><a href="https://www.instagram.com/guitar_residence/" target="_blank" rel="noopener">@guitar_residence</a></strong></div>
-                    <div class="contact-item"><span>TELEGRAM</span><strong><a href="https://t.me/guitar_residence" target="_blank" rel="noopener">Написати нам →</a></strong></div>
+                    <div class="contact-item"><span>TELEGRAM</span><strong><a href="https://t.me/guitar_residence" target="_blank" rel="noopener">Написати нам &rarr;</a></strong></div>
                 </div>
                 <div class="hero-actions" style="margin-top:24px;">
-                    <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary">Написати в Telegram</a>
-                    <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+                    <a href="#booking-form" class="btn btn-primary">Записатися на пробне</a>
+                    <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
                 </div>
             </div>
             <div class="map">
@@ -1500,6 +1521,7 @@
                     width="600"
                     height="450"
                     style="border:0;"
+                    title="Guitar Residence на мапі Києва"
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="strict-origin-when-cross-origin">
@@ -1514,8 +1536,8 @@
 ====================================================== -->
 <footer>
     <div class="container footer-inner">
-        <div>© 2026 Guitar Residence</div>
-        <div>Гітара · Вокал · Фортепіано</div>
+        <div>&copy; 2026 Guitar Residence</div>
+        <div>Гітара · Вокал · Фортепіано · <a href="/privacy-policy.html">Політика конфіденційності</a></div>
     </div>
 </footer>
 
@@ -1523,36 +1545,36 @@
      MOBILE STICKY BAR
 ====================================================== -->
 <div class="mobile-sticky-bar">
-    <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary">Записатися на пробне</a>
-    <a href="tel:+380995671384" class="btn btn-secondary">Дзвінок</a>
+    <a href="#booking-form" class="btn btn-primary">Записатися на пробне</a>
+    <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Telegram</a>
 </div>
 
 <!-- ======================================================
      FLOATING CONTACTS
 ====================================================== -->
 <div class="floating-contacts">
-    <a href="https://t.me/guitar_residence" target="_blank" class="floating-btn" aria-label="Telegram">✈️</a>
-    <a href="tel:+380995671384" class="floating-btn" aria-label="Подзвонити">📞</a>
+    <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="floating-btn" aria-label="Telegram">&#9992;&#65039;</a>
+    <a href="tel:+380995671384" class="floating-btn" aria-label="Подзвонити">&#128222;</a>
 </div>
 
 <!-- ======================================================
      EXIT INTENT POPUP
 ====================================================== -->
-<div class="exit-overlay" id="exitPopup">
+<div class="exit-overlay" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
     <div class="exit-popup">
-        <button class="exit-close" onclick="closeExitPopup()" aria-label="Закрити">×</button>
+        <button class="exit-close" onclick="closeExitPopup()" aria-label="Закрити">&times;</button>
         <div style="color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Зачекай</div>
-        <h3>Не йди без подарунка</h3>
-        <p>Залишся на сайті — і отримай пробне заняття всього за <strong style="color:var(--gold-light);">200 грн</strong> замість 300 грн. Абонемент 8 занять — <strong style="color:var(--gold-light);">4800 грн</strong> замість 5200 грн.</p>
+        <h3 id="exitPopupTitle">Спробуй перше заняття за 200 грн</h3>
+        <p>Пробне заняття всього за <strong style="color:var(--gold-light);">200 грн</strong> замість 300 грн. Абонемент 8 занять — <strong style="color:var(--gold-light);">4800 грн</strong> замість 5200 грн.</p>
         <div class="promo-highlight">
             <strong>200 грн</strong>
             <span>пробне заняття 45 хв · економія 33%</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-            <a href="https://t.me/guitar_residence" target="_blank" class="btn btn-primary">Записатися на пробне →</a>
-            <a href="tel:+380995671384" class="btn btn-secondary">Подзвонити</a>
+            <a href="#booking-form" class="btn btn-primary" onclick="closeExitPopup()">Записатися на пробне &rarr;</a>
+            <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Telegram</a>
         </div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:16px;margin-bottom:0;">Акція діє до 30 вересня включно</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:16px;margin-bottom:0;">Акція діє весь вересень</p>
     </div>
 </div>
 
@@ -1568,12 +1590,10 @@
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         root.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        root.setAttribute('data-theme', 'light');
     }
     function updateThemeIcon() {
         const isLight = root.getAttribute('data-theme') === 'light';
-        themeToggle.textContent = isLight ? '🌙' : '☀️';
+        themeToggle.textContent = isLight ? '\u{1F319}' : '\u2600\uFE0F';
         themeToggle.setAttribute('aria-label', isLight ? 'Увімкнути темну тему' : 'Увімкнути світлу тему');
     }
     updateThemeIcon();
@@ -1586,63 +1606,112 @@
     });
 
     /* =========================================================
-       COUNTDOWN TIMER (until Sept 30, current year 23:59:59)
+       COUNTDOWN TIMER (fixed deadline: 30 Sep 2026 23:59:59 Kyiv time)
     ========================================================= */
+    const PROMO_DEADLINE = new Date('2026-09-30T23:59:59+03:00').getTime();
+
+    function getDayWord(number) {
+        const last = number % 10;
+        const lastTwo = number % 100;
+        if (last === 1 && lastTwo !== 11) return 'день';
+        if ([2, 3, 4].includes(last) && ![12, 13, 14].includes(lastTwo)) return 'дні';
+        return 'днів';
+    }
+
     function updateTimers() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const deadline = new Date(year, 8, 30, 23, 59, 59);
-        const diff = deadline - now;
-        if (diff <= 0) {
-            document.querySelectorAll('#promoTimer, #heroTimer, #ctaTimer').forEach(el => {
-                if (el) el.textContent = 'Акція завершується сьогодні!';
-            });
-            return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const timerStr = days + ' дн ' + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
         const promoTimer = document.getElementById('promoTimer');
         const heroTimer = document.getElementById('heroTimer');
         const ctaTimer = document.getElementById('ctaTimer');
-        if (promoTimer) promoTimer.textContent = timerStr;
-        if (heroTimer) heroTimer.textContent = timerStr;
-        if (ctaTimer) ctaTimer.textContent = timerStr;
+        const diff = PROMO_DEADLINE - Date.now();
+
+        if (diff <= 0) {
+            if (promoTimer) promoTimer.textContent = 'Акцію завершено';
+            if (heroTimer) heroTimer.textContent = 'Акцію завершено';
+            if (ctaTimer) ctaTimer.textContent = 'Акцію завершено';
+            root.classList.add('promo-expired');
+            syncPromoHeight();
+            return;
+        }
+
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff / 3600000) % 24);
+        const minutes = Math.floor((diff / 60000) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        const hms = String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+        const full = days + ' ' + getDayWord(days) + ' ' + hms;
+
+        if (promoTimer) promoTimer.textContent = 'Залишилося: ' + full;
+        if (heroTimer) heroTimer.textContent = full;
+        if (ctaTimer) ctaTimer.textContent = full;
     }
-    updateTimers();
-    setInterval(updateTimers, 60000);
 
     /* =========================================================
-       PROMO BAR
+       PROMO BAR (dynamic height sync)
     ========================================================= */
+    const promoBar = document.getElementById('promoBar');
+
+    function syncPromoHeight() {
+        const height = (promoBar && !promoBar.hidden) ? promoBar.offsetHeight : 0;
+        root.style.setProperty('--promo-height', height + 'px');
+    }
+
     function closePromoBar() {
-        const bar = document.getElementById('promoBar');
-        if (bar) {
-            bar.style.display = 'none';
-            document.getElementById('mainHeader').style.top = '0';
-        }
+        if (!promoBar) return;
+        promoBar.hidden = true;
+        syncPromoHeight();
     }
 
-    /* =========================================================
-       EXIT INTENT POPUP
-    ========================================================= */
-    let exitShown = false;
-    document.addEventListener('mouseout', function(e) {
-        if (!exitShown && e.clientY < 10 && !e.relatedTarget) {
-            const popup = document.getElementById('exitPopup');
-            if (popup) {
-                popup.classList.add('active');
-                exitShown = true;
-            }
+    if (promoBar) {
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncPromoHeight).observe(promoBar);
         }
-    });
-    function closeExitPopup() {
-        const popup = document.getElementById('exitPopup');
-        if (popup) popup.classList.remove('active');
+        window.addEventListener('resize', syncPromoHeight);
+        window.addEventListener('load', syncPromoHeight);
+        syncPromoHeight();
     }
-    document.getElementById('exitPopup').addEventListener('click', function(e) {
-        if (e.target === this) closeExitPopup();
+
+    updateTimers();
+    setInterval(updateTimers, 1000);
+
+    /* =========================================================
+       EXIT INTENT POPUP (once per session, with focus handling)
+    ========================================================= */
+    const exitPopup = document.getElementById('exitPopup');
+    let lastFocused = null;
+
+    function openExitPopup() {
+        if (!exitPopup) return;
+        if (sessionStorage.getItem('exitPopupShown')) return;
+        lastFocused = document.activeElement;
+        exitPopup.classList.add('active');
+        sessionStorage.setItem('exitPopupShown', 'true');
+        const closeBtn = exitPopup.querySelector('.exit-close');
+        if (closeBtn) closeBtn.focus();
+    }
+
+    function closeExitPopup() {
+        if (!exitPopup) return;
+        exitPopup.classList.remove('active');
+        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    document.addEventListener('mouseout', function(e) {
+        if (e.clientY < 10 && !e.relatedTarget) openExitPopup();
+    });
+
+    if (exitPopup) {
+        exitPopup.addEventListener('click', function(e) {
+            if (e.target === this) closeExitPopup();
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && exitPopup && exitPopup.classList.contains('active')) {
+            closeExitPopup();
+        }
     });
 
     /* =========================================================
@@ -1655,7 +1724,7 @@
             photo: "images/roman.jpg",
             bio: "8+ років викладацького досвіду, студент НМАУ та концертуючий гітарист.",
             description: "Моя задача — не просто показати, як поставити пальці на струни. Я хочу, щоб ти якомога швидше почав грати музику самостійно.",
-            facts: [["8+", "років викладання"], ["1 → 1", "індивідуальний формат"], ["100%", "програма під учня"], ["LIVE", "концертний досвід"]]
+            facts: [["8+", "років викладання"], ["1 \u2192 1", "індивідуальний формат"], ["100%", "програма під учня"], ["LIVE", "концертний досвід"]]
         },
         kateryna: {
             name: "Катерина",
@@ -1663,23 +1732,23 @@
             photo: "images/kateryna.jpg",
             bio: "Викладачка вокалу з практичним підходом до постановки голосу та роботи з піснями.",
             description: "Допомагаю розкрити голос без зайвої академічності та страху помилитися. Працюємо над технікою, слухом, інтонацією та емоційною подачею через пісні, які тобі подобаються.",
-            facts: [["5+", "років викладання"], ["Постановка", "голосу з нуля"], ["Сцена", "підготовка до виступів"], ["Свобода", "управління голосом"]]
+            facts: [["5+", "років викладання"], ["Постановка", "голосу з нуля"], ["Сцена", "підготовка до виступів"], ["Свобода", "керування голосом"]]
         },
         anastasiia: {
-            name: "Анатасія",
+            name: "Анастасія",
             role: "Гітара · Викладач",
             photo: "images/anastasiia.jpg",
-            bio: "Вчу грати улюблені пісні легко та з кайфом.",
+            bio: "Вчу грати улюблені пісні легко та із задоволенням.",
             description: "Працюю з новачками та тими, хто хоче покращити свою гру. Вже з перших занять ми будемо розбирати пісні, які ти любиш, і поступово додавати теорію там, де вона дійсно потрібна для розуміння музики.",
-            facts: [["5+", "роки викладання"], ["Акустика", "та класика"], ["Співаємо під гітару", "практичний підхід"], ["Комфорт", "дружня атмосфера"]]
+            facts: [["5+", "років викладання"], ["Акустика", "та класика"], ["Спів під гітару", "практичний підхід"], ["Комфорт", "дружня атмосфера"]]
         },
         vladyslav: {
             name: "Владислав",
             role: "Фортепіано · Викладач",
             photo: "images/vladyslav.jpg",
-            bio: "Фортепіано для тих, хо хоче грати, а не просто вчити ноти.",
-            description: "Класична музика, сучасні хіти чи імпровізація — ти обираєш напрям, а я даю техніку та розуміння. Навіть без музичної школи за спиною, ти зможеш грати улюблені мелодії красиво та впевнено.",
-            facts: [["10+", "років в музиці"], ["З нуля", "постановка рук"], ["Сучасно", "актуальний репертуар"], ["1 на 1", "робота на результат"]]
+            bio: "Фортепіано для тих, хто хоче грати, а не просто вчити ноти.",
+            description: "Класична музика, сучасні хіти чи імпровізація — ти обираєш напрям, а я даю техніку та розуміння. Навіть без музичної школи за спиною ти зможеш грати улюблені мелодії красиво та впевнено.",
+            facts: [["10+", "років у музиці"], ["З нуля", "постановка рук"], ["Сучасно", "актуальний репертуар"], ["1 на 1", "робота на результат"]]
         }
     };
 
@@ -1691,7 +1760,6 @@
     const roleEl = document.getElementById('mainTeacherRole');
     const bioEl = document.getElementById('mainTeacherBio');
     const descEl = document.getElementById('mainTeacherDescription');
-    const btnEl = document.getElementById('teacherBookingButton');
 
     function changeTeacher(key) {
         document.querySelectorAll('.teacher-mini').forEach(b => b.classList.remove('active'));
@@ -1710,7 +1778,6 @@
             roleEl.textContent = t.role;
             bioEl.textContent = t.bio;
             descEl.textContent = t.description;
-            btnEl.textContent = 'Записатися';
 
             for (let i = 1; i <= 4; i++) {
                 const fValue = document.getElementById('fact' + i + 'Value');
@@ -1732,6 +1799,17 @@
         });
     });
 
+    /* Direction cards -> switch teacher + scroll */
+    document.querySelectorAll('.direction[data-teacher-target]').forEach(card => {
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+            const key = this.getAttribute('data-teacher-target');
+            changeTeacher(key);
+            const teacherSection = document.getElementById('teacher');
+            if (teacherSection) teacherSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
     /* =========================================================
        MOBILE MENU LOGIC
     ========================================================= */
@@ -1749,19 +1827,15 @@
     });
 
     /* =========================================================
-       SMOOTH SCROLL
+       SMOOTH SCROLL (ignore bare '#')
     ========================================================= */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                const headerOffset = 120;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            }
+            if (!targetElement) return;
+            e.preventDefault();
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
 
@@ -1786,41 +1860,138 @@
             e.target.value = formatted;
         });
     }
-        /* =========================================================
-       FORM SUBMIT — перенаправлення на thank-you.html
+
+    /* =========================================================
+       FORM SUBMIT -> redirect to thank-you.html (Google Ads)
     ========================================================= */
     const leadForm = document.getElementById('leadForm');
+    const formStatus = document.getElementById('formStatus');
+    const formSubmitBtn = document.getElementById('formSubmitBtn');
+
     if (leadForm) {
         leadForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // зупиняємо стандартну відправку
-            
+            e.preventDefault();
+
             const form = e.target;
             const formData = new FormData(form);
-            
+
+            formSubmitBtn.disabled = true;
+            formSubmitBtn.textContent = 'Надсилаємо...';
+            formStatus.className = 'form-status';
+            formStatus.textContent = '';
+
             fetch(form.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             }).then(function(response) {
                 if (response.ok) {
-                    // Успішно відправлено → перекидаємо на thank-you.html
                     window.location.href = 'thank-you.html';
                 } else {
                     response.json().then(function(data) {
-                        if (Object.hasOwn(data, 'errors')) {
-                            alert(data["errors"].map(function(error) { return error["message"]; }).join(", "));
+                        formStatus.className = 'form-status error';
+                        if (data && Object.prototype.hasOwnProperty.call(data, 'errors')) {
+                            formStatus.textContent = data.errors.map(function(err) { return err.message; }).join(', ');
                         } else {
-                            alert('Ой! Щось пішло не так. Спробуй ще раз або напиши нам у Telegram.');
+                            formStatus.textContent = 'Щось пішло не так. Спробуй ще раз або напиши нам у Telegram.';
                         }
+                        formSubmitBtn.disabled = false;
+                        formSubmitBtn.innerHTML = 'Записатися на пробне \u2192';
+                    }).catch(function() {
+                        formStatus.className = 'form-status error';
+                        formStatus.textContent = 'Щось пішло не так. Спробуй ще раз або напиши нам у Telegram.';
+                        formSubmitBtn.disabled = false;
+                        formSubmitBtn.innerHTML = 'Записатися на пробне \u2192';
                     });
                 }
-            }).catch(function(error) {
-                alert('Ой! Не вдалося надіслати. Перевір з\'єднання або напиши нам у Telegram.');
+            }).catch(function() {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Не вдалося надіслати. Перевір з\'єднання або напиши нам у Telegram.';
+                formSubmitBtn.disabled = false;
+                formSubmitBtn.innerHTML = 'Записатися на пробне \u2192';
             });
         });
     }
+
+    /* =========================================================
+       AUTUMN LEAVES EFFECT (canvas)
+    ========================================================= */
+    (function() {
+        const canvas = document.getElementById('seasonalCanvas');
+        if (!canvas) return;
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) return;
+
+        const ctx = canvas.getContext('2d');
+        let width, height, leaves;
+        const colors = ['#c48a28', '#b45309', '#a07020', '#d4a03d', '#8a5a1a'];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        function createLeaf() {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * -height,
+                size: 6 + Math.random() * 8,
+                speedY: 0.5 + Math.random() * 1.2,
+                speedX: -0.6 + Math.random() * 1.2,
+                angle: Math.random() * Math.PI * 2,
+                spin: (-0.02 + Math.random() * 0.04),
+                color: colors[Math.floor(Math.random() * colors.length)],
+                opacity: 0.35 + Math.random() * 0.4
+            };
+        }
+
+        function initLeaves() {
+            const count = Math.min(40, Math.floor(width / 30));
+            leaves = [];
+            for (let i = 0; i < count; i++) leaves.push(createLeaf());
+        }
+
+        function drawLeaf(l) {
+            ctx.save();
+            ctx.translate(l.x, l.y);
+            ctx.rotate(l.angle);
+            ctx.globalAlpha = l.opacity;
+            ctx.fillStyle = l.color;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, l.size * 0.55, l.size, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(0, -l.size);
+            ctx.lineTo(0, l.size);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            leaves.forEach(function(l) {
+                l.y += l.speedY;
+                l.x += l.speedX + Math.sin(l.y * 0.01) * 0.5;
+                l.angle += l.spin;
+                if (l.y > height + 20) {
+                    l.y = -20;
+                    l.x = Math.random() * width;
+                }
+                drawLeaf(l);
+            });
+            requestAnimationFrame(animate);
+        }
+
+        resize();
+        initLeaves();
+        animate();
+        window.addEventListener('resize', function() {
+            resize();
+            initLeaves();
+        });
+    })();
 </script>
 </body>
 </html>
