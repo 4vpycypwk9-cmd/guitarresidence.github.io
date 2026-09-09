@@ -2,6 +2,39 @@
 <html lang="uk" data-theme="dark" data-season="autumn">
 <head>
     <meta charset="UTF-8">
+    <!-- ============================================================
+         GOOGLE CONSENT MODE v2 (default = deny until user chooses)
+    ============================================================ -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+        // Відновлюємо попередній вибір користувача (якщо є)
+        (function () {
+            try {
+                var saved = localStorage.getItem('gr_consent');
+                if (saved) { gtag('consent', 'update', JSON.parse(saved)); }
+            } catch (e) {}
+        })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHRPR9SMJF"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-VHRPR9SMJF');
+        // === GOOGLE ADS ===
+        // Коли створиш Google Ads, розкоментуй рядок нижче і встав свій AW-ID:
+        // gtag('config', 'AW-XXXXXXXXX');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <title>Політика конфіденційності — Guitar Residence</title>
@@ -35,6 +68,548 @@
             --border-color: rgba(0, 0, 0, 0.10);
             --header-bg: rgba(255, 255, 255, 0.95);
             --hover-bg: rgba(0, 0, 0, 0.05);
+        }
+        [data-season="autumn"] {
+            --gold: #c48a28;
+            --gold-light: #d4a03d;
+            --gold-dark: #a07020;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: "Manrope", "Noto Sans", sans-serif;
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        button { font-family: inherit; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 3px;
+        }
+
+        .container { width: min(var(--container), calc(100% - 40px)); margin: 0 auto; }
+
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--header-bg);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .navbar {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 0.9;
+        }
+        .logo-icon { color: var(--gold); font-size: 28px; }
+        .logo small { display: block; color: var(--gold); font-size: 8px; letter-spacing: 3px; margin-top: 4px; }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .theme-toggle {
+            background: none; border: none; cursor: pointer; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-main); opacity: 0.7; transition: 0.2s ease;
+            width: 38px; height: 38px; border-radius: 50%; background: var(--hover-bg);
+        }
+        .theme-toggle:hover { opacity: 1; color: var(--gold); }
+        .back-link { font-size: 13px; font-weight: 700; color: var(--text-main); }
+        .back-link:hover { color: var(--gold); text-decoration: none; }
+
+        /* HERO */
+        .doc-hero {
+            padding: 70px 0 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: radial-gradient(circle at 15% 0%, rgba(212, 160, 61, 0.10), transparent 55%), var(--bg-secondary);
+        }
+        .label {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .doc-hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.5px; }
+        .doc-meta { margin-top: 18px; color: var(--text-muted); font-size: 14px; }
+
+        /* CONTENT */
+        main { padding: 55px 0 40px; }
+        .note {
+            background: rgba(212, 160, 61, 0.08);
+            border: 1px solid rgba(212, 160, 61, 0.3);
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .note strong { color: var(--gold-light); }
+
+        /* TOC */
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px 26px;
+            margin-bottom: 45px;
+        }
+        .toc h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 14px; }
+        .toc ol { margin: 0; padding-left: 20px; display: grid; gap: 7px; }
+        .toc li { font-size: 14px; }
+        .toc a { color: var(--text-main); }
+        .toc a:hover { color: var(--gold); }
+
+        section.block { margin-bottom: 42px; scroll-margin-top: 90px; }
+        section.block h2 {
+            font-size: clamp(21px, 3vw, 27px);
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section.block h2 .num { color: var(--gold); margin-right: 10px; }
+        section.block h3 { font-size: 17px; margin: 22px 0 8px; }
+        section.block p { color: var(--text-muted); margin-bottom: 14px; font-size: 15px; }
+        section.block ul { margin: 0 0 16px; padding-left: 4px; list-style: none; display: grid; gap: 9px; }
+        section.block ul li {
+            position: relative; padding-left: 24px; color: var(--text-muted); font-size: 15px;
+        }
+        section.block ul li::before {
+            content: "\2713"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 800;
+        }
+        section.block ul li strong { color: var(--text-main); font-weight: 700; }
+
+        table.data {
+            width: 100%; border-collapse: collapse; margin: 8px 0 18px; font-size: 14px;
+        }
+        table.data th, table.data td {
+            text-align: left; padding: 12px 14px; border: 1px solid var(--border-color); vertical-align: top;
+        }
+        table.data th { background: var(--bg-secondary); color: var(--text-main); font-weight: 700; }
+        table.data td { color: var(--text-muted); }
+
+        .contact-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px 26px;
+            margin-top: 8px;
+        }
+        .contact-box p { margin-bottom: 8px; color: var(--text-main); font-size: 15px; }
+        .contact-box span { color: var(--text-muted); }
+
+        footer { padding: 28px 0; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 12px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        @media (max-width: 600px) {
+            .doc-hero { padding: 45px 0 30px; }
+            main { padding: 40px 0 30px; }
+            table.data th, table.data td { padding: 10px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition-duration: 0.01ms !important; }
+        }
+        @media print {
+            header, footer, .theme-toggle, .back-link, .note { display: none; }
+            body { background: #fff; color: #000; }
+            a { color: #000; }
+        }
+        @page { size: A4; margin: 18mm; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">&#9834;</span>
+            <span>GUITAR<small>RESIDENCE</small></span>
+        </a>
+        <div class="header-actions">
+            <a href="index.html" class="back-link">&larr; На головну</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Перемкнути тему">&#127765;</button>
+        </div>
+    </div>
+</header>
+
+<section class="doc-hero">
+    <div class="container">
+        <div class="label">ПРАВОВА ІНФОРМАЦІЯ</div>
+        <h1>Політика конфіденційності</h1>
+        <p class="doc-meta">Чинна редакція від 9 вересня 2026 року</p>
+    </div>
+</section>
+
+<main>
+    <div class="container">
+
+        <div class="note">
+            <strong>Коротко:</strong> ми збираємо лише дані, потрібні для запису на заняття, використовуємо Google Analytics для аналітики та можемо використовувати Google Ads після запуску реклами. Необов'язкові cookies можна прийняти, відхилити або налаштувати.
+        </div>
+
+        <nav class="toc" aria-label="Зміст">
+            <h2>Зміст</h2>
+            <ol>
+                <li><a href="#general">Загальні положення</a></li>
+                <li><a href="#controller">Хто обробляє твої дані</a></li>
+                <li><a href="#data">Які дані ми збираємо</a></li>
+                <li><a href="#purpose">Мета та підстави обробки</a></li>
+                <li><a href="#cookies">Cookies та аналітика</a></li>
+                <li><a href="#google">Google Analytics і Google Ads</a></li>
+                <li><a href="#third">Передавання даних третім сторонам</a></li>
+                <li><a href="#storage">Зберігання та захист даних</a></li>
+                <li><a href="#rights">Твої права</a></li>
+                <li><a href="#children">Дані неповнолітніх</a></li>
+                <li><a href="#changes">Зміни до політики</a></li>
+                <li><a href="#contacts">Контакти</a></li>
+            </ol>
+        </nav>
+
+        <section class="block" id="general">
+            <h2><span class="num">01</span>Загальні положення</h2>
+            <p>Ця Політика конфіденційності пояснює, які персональні дані збирає музична школа-студія Guitar Residence (далі — «ми», «Школа») через сайт, як ми їх використовуємо, зберігаємо та захищаємо, а також які права ти маєш щодо своїх даних.</p>
+            <p>Використовуючи сайт, ти можеш ознайомитися з цією Політикою. Коли згода є необхідною, ми просимо надати її окремою чіткою дією — наприклад, поставити позначку у формі або обрати налаштування cookies.</p>
+            <p>Обробка даних здійснюється відповідно до Закону України «Про захист персональних даних». Якщо сайт відвідує особа, на яку поширюється законодавство Європейської економічної зони, Великої Британії або Швейцарії, додатково можуть застосовуватися відповідні місцеві вимоги щодо конфіденційності та згоди.</p>
+        </section>
+
+        <section class="block" id="controller">
+            <h2><span class="num">02</span>Хто обробляє твої дані</h2>
+            <p>Володільцем і розпорядником персональних даних є:</p>
+            <ul>
+                <li><strong>Найменування:</strong> Гуров Роман Володимирович</li>
+                                <li><strong>Адреса:</strong> Україна, Полтавська область, Лубенський район, с. Замостище, вул. Панаса Мирного, 6; адреса студії — м. Київ, вул. Хрещатик, 6</li>
+                <li><strong>E-mail для звернень:</strong> <a href="/cdn-cgi/l/email-protection#e0879589948192ce9285938984858e8385a0878d81898cce838f8d"><span class="__cf_email__" data-cfemail="5532203c2134277b2730263c31303b3630153238343c397b363a38">[email&#160;protected]</span></a></li>
+                <li><strong>Телефон:</strong> <a href="tel:+380995671384">+38 (099) 567 13 84</a></li>
+            </ul>
+        </section>
+
+        <section class="block" id="data">
+            <h2><span class="num">03</span>Які дані ми збираємо</h2>
+            <h3>Дані, які ти надаєш добровільно</h3>
+            <p>Коли ти заповнюєш форму запису на пробне заняття або пишеш нам, ми можемо збирати:</p>
+            <ul>
+                <li><strong>Ім'я</strong> — щоб звернутися до тебе;</li>
+                <li><strong>Номер телефону</strong> — щоб узгодити час і викладача;</li>
+                <li><strong>Обраний напрям</strong> (гітара, вокал, фортепіано);</li>
+                <li><strong>Рівень досвіду</strong> — щоб підібрати програму;</li>
+                <li><strong>Текст повідомлення</strong> — якщо ти його залишаєш.</li>
+            </ul>
+            <h3>Дані, які збираються автоматично</h3>
+            <p>Під час перегляду сайту можуть автоматично збиратися технічні дані:</p>
+            <ul>
+                <li>IP-адреса та приблизне місцезнаходження (місто/країна);</li>
+                <li>тип пристрою, браузера та операційної системи;</li>
+                <li>джерело переходу (наприклад, з оголошення Google Ads);</li>
+                <li>дії на сайті: переглянуті сторінки, кліки, відправлення форми;</li>
+                <li>ідентифікатори cookies та подібних технологій;</li>
+                <li>параметри рекламного переходу, зокрема GCLID, якщо вони наявні в адресі сторінки.</li>
+            </ul>
+        </section>
+
+        <section class="block" id="purpose">
+            <h2><span class="num">04</span>Мета та підстави обробки</h2>
+            <table class="data">
+                <thead>
+                    <tr><th>Мета</th><th>Приклад</th><th>Підстава</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Обробка заявок</td><td>Зв'язок для запису на пробне заняття</td><td>Твоя згода / вжиття заходів перед укладенням договору</td></tr>
+                    <tr><td>Надання послуг</td><td>Проведення занять, узгодження графіку</td><td>Виконання договору</td></tr>
+                    <tr><td>Аналітика сайту</td><td>Розуміння, як відвідувачі користуються сайтом</td><td>Твоя згода, коли вона вимагається законом; в інших випадках — наш законний інтерес</td></tr>
+                    <tr><td>Реклама та ремаркетинг</td><td>Показ і оцінка ефективності реклами в Google</td><td>Твоя згода</td></tr>
+                    <tr><td>Комунікація</td><td>Відповіді на запитання у Telegram, Instagram, по телефону</td><td>Твоя згода / законний інтерес</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="block" id="cookies">
+            <h2><span class="num">05</span>Cookies та аналітика</h2>
+            <p>Cookies — це невеликі текстові файли, які можуть зберігатися у твоєму браузері. Ми використовуємо необхідне локальне сховище для роботи налаштувань сайту (наприклад, обраної теми оформлення), а аналітичні та рекламні технології — відповідно до зробленого тобою вибору згоди.</p>
+            <ul>
+                <li><strong>Необхідні</strong> — забезпечують базову роботу сайту;</li>
+                <li><strong>Аналітичні</strong> — допомагають оцінити відвідуваність і поведінку користувачів;</li>
+                <li><strong>Рекламні</strong> — використовуються для показу й оцінки реклами, зокрема ремаркетингу.</li>
+            </ul>
+            <p>Під час першого відвідування сайт пропонує прийняти або відхилити аналітичні й рекламні cookies. Ти можеш змінити свій вибір, очистивши дані сайту у браузері, а також видалити або заблокувати cookies у налаштуваннях браузера. Вимкнення частини cookies може вплинути на окремі функції сайту.</p>
+        </section>
+
+        <section class="block" id="google">
+            <h2><span class="num">06</span>Google Analytics і Google Ads</h2>
+            <p>Ми використовуємо Google Analytics для аналітики сайту. Після запуску рекламних кампаній можемо також використовувати Google Ads:</p>
+            <ul>
+                <li><strong>Google Analytics</strong> — для аналізу відвідуваності та поведінки на сайті у знеособленому вигляді;</li>
+                <li><strong>Google Ads</strong> — після запуску реклами: для показу оголошень, вимірювання конверсій (наприклад, успішного відправлення форми запису) та ремаркетингу.</li>
+            </ul>
+            <p>Ці сервіси можуть використовувати cookies і подібні технології, щоб оцінювати ефективність реклами й, якщо це дозволено твоїм вибором, показувати персоналізовані оголошення на сайтах Google та в мережі партнерів. Сайт використовує механізм Google Consent Mode v2, який передає Google обраний статус згоди для аналітичного та рекламного зберігання, рекламних даних користувача й персоналізації реклами. Дані можуть передаватися й оброблятися на серверах Google за межами України.</p>
+            <p>Ми не передаємо Google Analytics або Google Ads поля форми, за якими Google може безпосередньо ідентифікувати тебе, зокрема ім'я, номер телефону чи текст повідомлення. Конверсія Google Ads означає лише факт успішного завершення форми або іншу визначену дію на сайті. Якщо в майбутньому буде ввімкнено функцію покращених конверсій, вона застосовуватиметься лише за наявності належної правової підстави та відповідного інформування.</p>
+            <p>Ти можеш керувати рекламними налаштуваннями Google на сторінці <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Мій центр реклами Google</a>, а також відмовитися від Google Analytics за допомогою <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">офіційного доповнення для браузера</a>. Про обробку даних Google докладніше — у <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Політиці конфіденційності Google</a>.</p>
+        </section>
+
+        <section class="block" id="third">
+            <h2><span class="num">07</span>Передавання даних третім сторонам</h2>
+            <p>Ми не продаємо твої персональні дані. Ми можемо передавати їх лише надійним партнерам, які допомагають нам працювати, у мінімально необхідному обсязі:</p>
+            <ul>
+                <li><strong>Formspree</strong> — сервіс, який обробляє та доставляє нам заявки, надіслані через форму на сайті;</li>
+                <li><strong>Google</strong> — аналітика та реклама (див. розділ 06);</li>
+                <li><strong>Оператори зв'язку та месенджери</strong> — Telegram, Instagram (Meta), телефонний зв'язок, якщо ти звертаєшся цими каналами;</li>
+                <li><strong>Google Maps</strong> — на сайті вбудована карта з розташуванням студії;</li>
+                <li><strong>Державні органи</strong> — виключно у випадках, прямо передбачених законом.</li>
+            </ul>
+            <p>Частина цих сервісів може зберігати дані за межами України. У таких випадках передавання здійснюється з дотриманням застосовних вимог законодавства щодо захисту персональних даних.</p>
+        </section>
+
+        <section class="block" id="storage">
+            <h2><span class="num">08</span>Зберігання та захист даних</h2>
+            <p>Ми зберігаємо персональні дані лише стільки, скільки потрібно для цілей, зазначених у цій Політиці, або протягом строку, встановленого законодавством. Дані заявок, які не призвели до початку навчання, ми планово переглядаємо та видаляємо або знеособлюємо, коли вони більше не потрібні для відповіді на звернення й подальшої комунікації.</p>
+            <p>Ми вживаємо організаційних і технічних заходів для захисту даних від несанкціонованого доступу, втрати чи розголошення. Водночас жоден спосіб передавання даних через інтернет не є абсолютно безпечним, тому ми не можемо гарантувати абсолютну захищеність.</p>
+        </section>
+
+        <section class="block" id="rights">
+            <h2><span class="num">09</span>Твої права</h2>
+            <p>Щодо своїх персональних даних ти маєш право:</p>
+            <ul>
+                <li>знати, які дані ми обробляємо, та отримати доступ до них;</li>
+                <li>вимагати виправлення неточних або неповних даних;</li>
+                <li>вимагати видалення даних у випадках, передбачених законодавством;</li>
+                <li>обмежити або заперечити проти обробки;</li>
+                <li>відкликати раніше надану згоду в будь-який момент;</li>
+                <li>подати скаргу до Уповноваженого Верховної Ради України з прав людини.</li>
+            </ul>
+            <p>Щоб скористатися будь-яким із цих прав, напиши нам на <a href="/cdn-cgi/l/email-protection#5433213d2035267a2631273d30313a3731143339353d387a373b39"><span class="__cf_email__" data-cfemail="3255475b4653401c4057415b56575c515772555f535b5e1c515d5f">[email&#160;protected]</span></a>. Ми відповімо у строк, передбачений законодавством.</p>
+        </section>
+
+        <section class="block" id="children">
+            <h2><span class="num">10</span>Дані неповнолітніх</h2>
+            <p>Якщо на заняття записується неповнолітня особа, рекомендуємо, щоб форму заповнював і згоду на обробку персональних даних надавав один із батьків або законний представник дитини.</p>
+        </section>
+
+        <section class="block" id="changes">
+            <h2><span class="num">11</span>Зміни до політики</h2>
+            <p>Ми можемо періодично оновлювати цю Політику. Актуальна редакція завжди доступна на цій сторінці із зазначенням дати набрання чинності. Рекомендуємо час від часу переглядати цей документ.</p>
+        </section>
+
+        <section class="block" id="contacts">
+            <h2><span class="num">12</span>Контакти</h2>
+            <p>З будь-яких питань щодо цієї Політики або обробки твоїх персональних даних звертайся до нас:</p>
+            <div class="contact-box">
+                <p><span>Guitar Residence</span></p>
+                <p><span>Адреса:</span> м. Київ, вул. Хрещатик, 6</p>
+                <p><span>Телефон:</span> <a href="tel:+380995671384">+38 (099) 567 13 84</a></p>
+                <p><span>E-mail:</span> <a href="/cdn-cgi/l/email-protection#92f5e7fbe6f3e0bce0f7e1fbf6f7fcf1f7d2f5fff3fbfebcf1fdff"><span class="__cf_email__" data-cfemail="a0c7d5c9d4c1d28ed2c5d3c9c4c5cec3c5e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</span></a></p>
+                <p><span>Telegram:</span> <a href="https://t.me/guitar_residence" target="_blank" rel="noopener">@guitar_residence</a></p>
+                <p><span>Instagram:</span> <a href="https://www.instagram.com/guitar_residence/" target="_blank" rel="noopener">@guitar_residence</a></p>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <div class="container footer-inner">
+        <div>&copy; 2026 Guitar Residence</div>
+        <div><a href="index.html">На головну</a> · <a href="#" onclick="openCookieSettings(); return false;">Налаштування cookies</a> · Гітара · Вокал · Фортепіано</div>
+    </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+    function updateThemeIcon() {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        themeToggle.textContent = isLight ? '\u{1F319}' : '\u2600\uFE0F';
+        themeToggle.setAttribute('aria-label', isLight ? 'Увімкнути темну тему' : 'Увімкнути світлу тему');
+    }
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => {
+        const newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon();
+    });
+</script>
+
+    <!-- ============================================================
+         COOKIE CONSENT BANNER (Consent Mode v2)
+    ============================================================ -->
+    <style>
+        #cookieBanner {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000;
+            display: none; padding: 16px;
+        }
+        #cookieBanner.show { display: block; }
+        .cc-inner {
+            max-width: 1080px; margin: 0 auto;
+            background: #191a17; color: #f5f2eb;
+            border: 1px solid rgba(212,160,61,0.45); border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            padding: 20px 22px;
+            font-family: "Manrope", sans-serif;
+        }
+        .cc-inner p { font-size: 14px; line-height: 1.6; color: #d8d5cd; margin: 0 0 14px; }
+        .cc-inner a { color: #f1bd59; text-decoration: underline; text-underline-offset: 3px; }
+        .cc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cc-btn {
+            flex: 1; min-width: 150px;
+            padding: 12px 16px; border-radius: 5px; font-size: 13px; font-weight: 800;
+            cursor: pointer; border: 1px solid transparent; transition: 0.2s ease; font-family: inherit;
+        }
+        .cc-accept { background: linear-gradient(135deg,#c48a28,#d4a03d); color: #171208; }
+        .cc-accept:hover { filter: brightness(1.08); }
+        .cc-reject { background: transparent; color: #f5f2eb; border-color: rgba(255,255,255,0.25); }
+        .cc-reject:hover { border-color: #d4a03d; color: #d4a03d; }
+        .cc-settings { background: transparent; color: #a9a69e; border-color: rgba(255,255,255,0.18); }
+        .cc-settings:hover { color: #d4a03d; border-color: #d4a03d; }
+        .cc-detail { display: none; margin: 4px 0 16px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
+        .cc-detail.show { display: block; }
+        .cc-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 0; }
+        .cc-row strong { font-size: 14px; }
+        .cc-row span { display: block; font-size: 12px; color: #a9a69e; margin-top: 2px; }
+        .cc-switch { position: relative; width: 44px; height: 24px; flex: 0 0 44px; }
+        .cc-switch input { opacity: 0; width: 0; height: 0; }
+        .cc-slider {
+            position: absolute; inset: 0; cursor: pointer; background: #3a3a35;
+            border-radius: 24px; transition: 0.2s;
+        }
+        .cc-slider::before {
+            content: ""; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px;
+            background: #f5f2eb; border-radius: 50%; transition: 0.2s;
+        }
+        .cc-switch input:checked + .cc-slider { background: #c48a28; }
+        .cc-switch input:checked + .cc-slider::before { transform: translateX(20px); }
+        .cc-switch input:disabled + .cc-slider { opacity: 0.6; cursor: not-allowed; }
+        @media (max-width: 520px) { .cc-btn { flex: 1 1 100%; } }
+    </style>
+
+    <div id="cookieBanner" role="dialog" aria-label="Налаштування cookies" aria-live="polite">
+        <div class="cc-inner">
+            <p>
+                Ми використовуємо cookies, щоб сайт коректно працював, а також для аналітики
+                та оцінки ефективності реклами. Ти можеш прийняти всі cookies, відхилити
+                необов'язкові або налаштувати вибір. Докладніше — у
+                <a href="privacy-policy.html">Політиці конфіденційності</a>.
+            </p>
+
+            <div class="cc-detail" id="ccDetail">
+                <div class="cc-row">
+                    <div>
+                        <strong>Необхідні</strong>
+                        <span>Забезпечують базову роботу сайту. Завжди увімкнені.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Аналітичні</strong>
+                        <span>Google Analytics — допомагає покращувати сайт.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAnalytics">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+                <div class="cc-row">
+                    <div>
+                        <strong>Рекламні</strong>
+                        <span>Google Ads — вимірювання конверсій і ремаркетинг.</span>
+                    </div>
+                    <label class="cc-switch">
+                        <input type="checkbox" id="ccAds">
+                        <span class="cc-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="cc-actions">
+                <button type="button" class="cc-btn cc-accept" id="ccAcceptAll">Прийняти всі</button>
+                <button type="button" class="cc-btn cc-reject" id="ccRejectAll">Відхилити необов'язкові</button>
+                <button type="button" class="cc-btn cc-settings" id="ccToggleSettings">Налаштувати</button>
+            </div>
+            <div class="cc-actions" id="ccSaveWrap" style="display:none;margin-top:10px;">
+                <button type="button" class="cc-btn cc-accept" id="ccSave">Зберегти вибір</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('cookieBanner');
+            if (!banner) return;
+            var detail = document.getElementById('ccDetail');
+            var saveWrap = document.getElementById('ccSaveWrap');
+            var swAnalytics = document.getElementById('ccAnalytics');
+            var swAds = document.getElementById('ccAds');
+
+            function applyConsent(analytics, ads) {
+                var consent = {
+                    'analytics_storage': analytics ? 'granted' : 'denied',
+                    'ad_storage': ads ? 'granted' : 'denied',
+                    'ad_user_data': ads ? 'granted' : 'denied',
+                    'ad_personalization': ads ? 'granted' : 'denied'
+                };
+                if (typeof gtag === 'function') { gtag('consent', 'update', consent); }
+                try {
+                    localStorage.setItem('gr_consent', JSON.stringify(consent));
+                    localStorage.setItem('gr_consent_set', '1');
+                } catch (e) {}
+            }
+
+            function hide() { banner.classList.remove('show'); }
+            window.openCookieSettings = function () {
+                banner.classList.add('show');
+                detail.classList.add('show');
+                saveWrap.style.display = 'flex';
+                try {
+                    var current = JSON.parse(localStorage.getItem('gr_consent') || '{}');
+                    swAnalytics.checked = current.analytics_storage === 'granted';
+                    swAds.checked = current.ad_storage === 'granted';
+                } catch (e) {}
+            };
+
+            // Показуємо банер, лише якщо вибір ще не зроблено
+            var alreadySet = false;
+            try { alreadySet = localStorage.getItem('gr_consent_set') === '1'; } catch (e) {}
+            if (!alreadySet) { banner.classList.add('show'); }
+
+            document.getElementById('ccAcceptAll').addEventListener('click', function () {
+                applyConsent(true, true); hide();
+            });
+            document.getElementById('ccRejectAll').addEventListener('click', function () {
+                applyConsent(false, false); hide();
+            });
+            document.getElementById('ccToggleSettings').addEventListener('click', function () {
+                detail.classList.toggle('show');
+                saveWrap.style.display = detail.classList.contains('show') ? 'flex' : 'none';
+            });
+            document.getElementById('ccSave').addEventListener('click', function () {
+                applyConsent(swAnalytics.checked, swAds.checked); hide();
+            });
+        })();
+    </script>
+
+</body>
+</html>            --hover-bg: rgba(0, 0, 0, 0.05);
         }
         [data-season="autumn"] {
             --gold: #c48a28;
