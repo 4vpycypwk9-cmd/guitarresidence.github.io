@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark" data-season="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила для учнів — Guitar Residence | Музична школа-студія в Києві</title>
+    <meta name="description" content="Правила для учнів музичної школи-студії Guitar Residence: перенесення та скасування занять, хвороба, оплата абонементів, поведінка, безпека та відеоспостереження.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d8a23d;
+            --gold-light: #f1bd59;
+            --gold-dark: #b8851f;
+            --gold-glow: rgba(216, 162, 61, 0.35);
+            --container: 1180px;
+
+            --bg-main: #0b0c0b;
+            --bg-secondary: #121311;
+            --bg-tertiary: #191a17;
+            --text-main: #f5f2eb;
+            --text-muted: #a9a69e;
+            --border-color: rgba(255, 255, 255, 0.10);
+            --header-bg: rgba(11, 12, 11, 0.88);
+            --hero-grad-1: rgba(8, 9, 8, 0.96);
+            --hero-grad-2: rgba(8, 9, 8, 0.60);
+            --hero-grad-3: rgba(8, 9, 8, 0.15);
+            --hover-bg: rgba(255, 255, 255, 0.06);
+            --btn-text: #171208;
+        }
+        [data-theme="light"] {
+            --bg-main: #ffffff;
+            --bg-secondary: #f7f7f7;
+            --bg-tertiary: #ffffff;
+            --text-main: #121311;
+            --text-muted: #666666;
+            --border-color: rgba(0, 0, 0, 0.10);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --hover-bg: rgba(0, 0, 0, 0.05);
+        }
+        [data-season="autumn"] {
+            --gold: #c48a28;
+            --gold-light: #d4a03d;
+            --gold-dark: #a07020;
+            --gold-glow: rgba(212, 160, 61, 0.35);
+            --accent-1: #b45309;
+            --accent-2: #dc2626;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: "Manrope", sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; }
+        .container { width: min(var(--container), calc(100% - 40px)); margin: 0 auto; }
+        [id] { scroll-margin-top: 96px; }
+
+        .label {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 100;
+            background: var(--header-bg);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .navbar { height: 76px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 1px; line-height: 0.9; }
+        .logo-icon { color: var(--gold); font-size: 31px; }
+        .logo small { display: block; color: var(--gold); font-size: 8px; letter-spacing: 3px; margin-top: 4px; }
+        .header-actions { display: flex; align-items: center; gap: 16px; }
+        .theme-toggle {
+            background: none; border: none; cursor: pointer; font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-main); opacity: 0.7; transition: 0.2s ease;
+            width: 40px; height: 40px; border-radius: 50%; background: var(--hover-bg);
+        }
+        .theme-toggle:hover { opacity: 1; color: var(--gold); }
+        .btn {
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 13px 22px; background: var(--gold); color: var(--btn-text);
+            border: 1px solid var(--gold); border-radius: 4px;
+            font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s ease; min-height: 44px;
+        }
+        .btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+        .btn-secondary:hover { background: var(--gold); color: var(--btn-text); }
+
+        /* HERO */
+        .page-hero {
+            padding: 150px 0 60px;
+            border-bottom: 1px solid var(--border-color);
+            background:
+                radial-gradient(circle at 15% 0%, rgba(212,160,61,0.10), transparent 45%),
+                var(--bg-secondary);
+        }
+        .page-hero h1 { font-size: clamp(36px, 6vw, 66px); line-height: 1.02; letter-spacing: -2px; margin-bottom: 20px; }
+        .page-hero h1 span { color: var(--gold); }
+        .page-hero p { max-width: 680px; color: var(--text-muted); font-size: 17px; }
+        .hero-meta { display: flex; gap: 30px; margin-top: 34px; flex-wrap: wrap; }
+        .hero-meta .item { padding-left: 15px; border-left: 1px solid var(--gold); }
+        .hero-meta .item strong { display: block; font-size: 16px; }
+        .hero-meta .item span { display: block; color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+
+        /* INTRO NOTE */
+        .intro-note {
+            display: flex; gap: 14px; align-items: flex-start;
+            background: rgba(212, 160, 61, 0.08);
+            border: 1px solid rgba(212, 160, 61, 0.25);
+            border-radius: 6px; padding: 18px 20px; margin-top: 30px;
+            font-size: 14.5px; color: var(--text-main);
+        }
+        .intro-note .ic { color: var(--gold); font-size: 20px; line-height: 1; flex-shrink: 0; }
+
+        /* CONTENT */
+        .content { padding: 70px 0 40px; }
+        .rules-layout { display: grid; grid-template-columns: 260px 1fr; gap: 50px; align-items: start; }
+
+        /* TOC */
+        .toc {
+            position: sticky; top: 96px;
+            border: 1px solid var(--border-color); border-radius: 6px;
+            background: var(--bg-secondary); padding: 22px;
+        }
+        .toc h4 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+        .toc a {
+            display: block; color: var(--text-muted); font-size: 13.5px;
+            padding: 7px 0; border-bottom: 1px solid var(--border-color); transition: 0.2s;
+        }
+        .toc a:last-child { border-bottom: none; }
+        .toc a:hover { color: var(--gold); padding-left: 5px; }
+
+        /* RULE BLOCKS */
+        .rule-block { margin-bottom: 44px; }
+        .rule-block:last-child { margin-bottom: 0; }
+        .rule-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+        .rule-num { color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: 1px; flex-shrink: 0; }
+        .rule-block h2 { font-size: clamp(22px, 3vw, 30px); line-height: 1.15; letter-spacing: -0.5px; }
+        .rule-list { list-style: none; display: grid; gap: 12px; }
+        .rule-list li {
+            position: relative; padding: 14px 16px 14px 42px;
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 5px; font-size: 15px; color: var(--text-main);
+        }
+        .rule-list li::before {
+            content: "\2713"; position: absolute; left: 16px; top: 14px;
+            color: var(--gold); font-weight: 800;
+        }
+        .rule-list li b { color: var(--gold-light); font-weight: 700; }
+        .rule-list li.warn::before { content: "\26A0"; color: var(--accent-1, #b45309); }
+
+        .callout {
+            border-left: 3px solid var(--gold); background: var(--bg-tertiary);
+            padding: 14px 18px; border-radius: 0 5px 5px 0; margin-top: 14px;
+            font-size: 14px; color: var(--text-muted);
+        }
+        .callout b { color: var(--gold-light); }
+
+        /* AGREE / CTA */
+        .agree-section { border-top: 1px solid var(--border-color); background: var(--bg-secondary); }
+        .agree-inner { padding: 70px 0; text-align: center; }
+        .agree-inner h2 { font-size: clamp(26px, 4vw, 40px); letter-spacing: -1px; margin-bottom: 16px; }
+        .agree-inner p { max-width: 620px; margin: 0 auto 28px; color: var(--text-muted); font-size: 16px; }
+        .agree-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        /* FOOTER */
+        footer { padding: 30px 0; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 12px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .footer-inner a { color: var(--gold); }
+
+        @media(max-width: 900px) {
+            .rules-layout { grid-template-columns: 1fr; gap: 30px; }
+            .toc { position: static; }
+        }
+        @media(max-width: 600px) {
+            .page-hero { padding: 120px 0 45px; }
+            .content { padding: 45px 0 30px; }
+            .header-actions .btn { display: none; }
+            .rule-list li { font-size: 14.5px; }
+            .agree-inner { padding: 50px 0; }
+        }
+        a:focus-visible, button:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="container navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">&#9834;</span>
+            <span>GUITAR<small>RESIDENCE</small></span>
+        </a>
+        <div class="header-actions">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Перемкнути тему">&#127765;</button>
+            <a href="index.html" class="btn btn-secondary">&larr; На головну</a>
+            <a href="index.html#booking-form" class="btn">Записатися</a>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="label">ДОКУМЕНТ ДЛЯ УЧНІВ · GUITAR RESIDENCE</div>
+        <h1>Правила для <span>учнів</span> школи-студії</h1>
+        <p>Ці правила допомагають нам зробити навчання зручним, стабільним і чесним для всіх — і для учнів, і для викладачів. Будь ласка, ознайомтеся з ними перед придбанням абонемента.</p>
+
+        <div class="hero-meta">
+            <div class="item"><strong>60 хв</strong><span>тривалість заняття</span></div>
+            <div class="item"><strong>24 год</strong><span>термін для перенесення</span></div>
+            <div class="item"><strong>1 місяць</strong><span>термін дії абонемента</span></div>
+        </div>
+
+        <div class="intro-note">
+            <span class="ic">&#9834;</span>
+            <div>Придбання абонемента або запис на заняття означає, що учень (або батьки/законні представники неповнолітнього учня) ознайомилися з цими правилами та погоджуються їх дотримуватися.</div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTENT -->
+<section class="content">
+    <div class="container rules-layout">
+
+        <!-- TOC -->
+        <aside class="toc" aria-label="Зміст">
+            <h4>Зміст</h4>
+            <a href="#punctual">1. Пунктуальність</a>
+            <a href="#reschedule">2. Перенесення занять</a>
+            <a href="#illness">3. Хвороба</a>
+            <a href="#cancel-school">4. Скасування з боку школи</a>
+            <a href="#payment">5. Оплата занять</a>
+            <a href="#freeze">6. Заморозка та пропуски</a>
+            <a href="#online">7. Онлайн-формат</a>
+            <a href="#stop">8. Припинення занять</a>
+            <a href="#safety">9. Безпека</a>
+            <a href="#creative">10. Навчальний підхід</a>
+        </aside>
+
+        <!-- RULES -->
+        <div>
+
+            <div class="rule-block" id="punctual">
+                <div class="rule-head"><span class="rule-num">01</span><h2>Пунктуальність</h2></div>
+                <ul class="rule-list">
+                    <li>Приходьте на заняття вчасно. Радимо бути на місці за 5&ndash;10 хвилин до початку уроку.</li>
+                    <li class="warn">У разі запізнення, <b>незалежно від кількості хвилин</b>, пропущений час не компенсується — заняття завершується у визначений розкладом час, щоб не зміщувати наступних учнів.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="reschedule">
+                <div class="rule-head"><span class="rule-num">02</span><h2>Перенесення та скасування занять</h2></div>
+                <ul class="rule-list">
+                    <li>Якщо ви не можете прийти на заняття, попередьте викладача або адміністрацію <b>щонайменше за 24 години</b> до початку уроку.</li>
+                    <li>За своєчасного попередження заняття переноситься та відпрацьовується в межах поточного місяця (у вільний час за домовленістю з викладачем).</li>
+                    <li class="warn">Попередження <b>менш ніж за 24 години</b> або неявка без повідомлення вважаються використаним заняттям — воно списується з абонемента та не відпрацьовується.</li>
+                    <li>Скасування менш ніж за 24 години може бути враховане лише у форс-мажорних обставинах за наявності підтвердження, і розглядається індивідуально.</li>
+                </ul>
+                <div class="callout">Просимо цінувати час викладача: він резервує цей слот саме за вами, тому своєчасне попередження — обов'язкова умова для перенесення. <b>Кількість перенесень у межах одного абонемента може бути обмежена</b> (за домовленістю з адміністрацією).</div>
+            </div>
+
+            <div class="rule-block" id="illness">
+                <div class="rule-head"><span class="rule-num">03</span><h2>Хвороба</h2></div>
+                <ul class="rule-list">
+                    <li>Якщо ви захворіли, повідомте про це якомога раніше — за можливості <b>не пізніше ніж за 24 години</b> до заняття. Тоді урок буде перенесено.</li>
+                    <li>Якщо ви почуваєтеся погано, але можете займатися, ми пропонуємо провести заняття <b>онлайн</b> у той самий час замість пропуску.</li>
+                    <li class="warn">Просимо не приходити на заняття з ознаками застуди чи інфекції — щоб не наражати на ризик викладача та інших учнів.</li>
+                    <li>У разі <b>тривалої хвороби</b> (відсутність понад 7 днів) за наявності підтвердження абонемент може бути «заморожений», а його термін дії — продовжений.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="cancel-school">
+                <div class="rule-head"><span class="rule-num">04</span><h2>Скасування занять з боку школи</h2></div>
+                <ul class="rule-list">
+                    <li>Якщо викладач не може провести заняття, ми попереджаємо про це заздалегідь і пропонуємо на вибір: перенесення на зручний час, заняття із заміняючим викладачем або онлайн-урок.</li>
+                    <li>Заняття, скасовані з ініціативи школи, <b>не згорають</b> і повністю відпрацьовуються або компенсуються.</li>
+                    <li>У разі форс-мажору (тривоги, відключення електроенергії, надзвичайні ситуації) заняття переноситься на інший час без втрати для учня.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="payment">
+                <div class="rule-head"><span class="rule-num">05</span><h2>Оплата занять</h2></div>
+                <ul class="rule-list">
+                    <li>Навчання оплачується <b>абонементами наперед</b> (блоками занять). Абонемент розрахований на один місяць з моменту першого заняття.</li>
+                    <li>Оплата наступного абонемента здійснюється <b>до або в день останнього заняття</b> поточного абонемента, щоб зберегти за вами місце та час у розкладі.</li>
+                    <li>Місце й час у розкладі закріплюються за учнем лише після оплати.</li>
+                    <li class="warn">Кошти за придбаний абонемент <b>не повертаються</b>; невикористані заняття можуть бути перенесені лише згідно з правилами перенесення (п. 2) та заморозки (п. 6).</li>
+                    <li>Разові заняття оплачуються до початку уроку.</li>
+                </ul>
+                <div class="callout">Ціни на разові заняття та абонементи вказані на головній сторінці сайту в розділі <b>«Вартість занять»</b>.</div>
+            </div>
+
+            <div class="rule-block" id="freeze">
+                <div class="rule-head"><span class="rule-num">06</span><h2>Заморозка абонемента та пропуски</h2></div>
+                <ul class="rule-list">
+                    <li>За потреби (відпустка, відрядження, тривала хвороба) абонемент можна <b>заморозити</b>, попередивши адміністрацію заздалегідь. Термін дії абонемента на цей період продовжується.</li>
+                    <li>Заняття, пропущені <b>без попередження</b> або без своєчасного перенесення, вважаються використаними та не відновлюються.</li>
+                    <li>Невикористані заняття діють у межах терміну абонемента (або терміну заморозки) і не переносяться на наступний абонемент без окремої домовленості.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="online">
+                <div class="rule-head"><span class="rule-num">07</span><h2>Онлайн-формат</h2></div>
+                <ul class="rule-list">
+                    <li>Якщо учень не може прийти особисто (хвороба, погода, від'їзд), заняття за домовленістю можна провести <b>онлайн</b> у той самий час — замість пропуску.</li>
+                    <li>Онлайн-заняття рівноцінне очному та списується з абонемента як звичайний урок.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="stop">
+                <div class="rule-head"><span class="rule-num">08</span><h2>Припинення або призупинення занять</h2></div>
+                <ul class="rule-list">
+                    <li>Якщо ви вирішили зробити перерву чи припинити навчання, повідомте адміністрацію заздалегідь — ми допоможемо коректно завершити поточний абонемент.</li>
+                    <li>При тривалій перерві місце та час у розкладі, а також конкретний викладач, не можуть бути гарантовані після повернення, але ми намагатимемося їх зберегти.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="safety">
+                <div class="rule-head"><span class="rule-num">09</span><h2>Безпека</h2></div>
+                <ul class="rule-list">
+                    <li>Не залишайте цінні речі без нагляду.</li>
+                    <li>Батьки неповнолітніх учнів зобов'язані супроводжувати дитину до приміщення школи та зустрічати після занять.</li>
+                    <li>Ставтеся дбайливо до інструментів, обладнання та приміщень студії.</li>
+                    <li><b>У класах встановлені камери відеоспостереження</b> для забезпечення безпеки та контролю навчального процесу.</li>
+                </ul>
+            </div>
+
+            <div class="rule-block" id="creative">
+                <div class="rule-head"><span class="rule-num">10</span><h2>Навчальний підхід</h2></div>
+                <ul class="rule-list">
+                    <li>Для стабільного прогресу важливо регулярно займатися вдома між уроками.</li>
+                    <li>Не бійтеся ставити запитання — якщо щось незрозуміло, скажіть викладачу.</li>
+                    <li>Пам'ятайте: головна мета — отримувати задоволення від музики та розвивати свій талант!</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- AGREE / CTA -->
+<section class="agree-section">
+    <div class="container agree-inner">
+        <div class="label">ГОТОВІ ПОЧАТИ?</div>
+        <h2>Погоджуючись із правилами — робимо перший крок разом</h2>
+        <p>Якщо у вас залишилися запитання щодо правил, перенесень чи оплати — напишіть нам, ми з радістю все пояснимо перед стартом навчання.</p>
+        <div class="agree-buttons">
+            <a href="index.html#booking-form" class="btn">Записатися на заняття &rarr;</a>
+            <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Написати в Telegram</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container footer-inner">
+        <div>&copy; 2026 Guitar Residence · Правила для учнів</div>
+        <div>Гітара · Вокал · Фортепіано · <a href="index.html">На головну</a></div>
+    </div>
+</footer>
+
+<script>
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+    function updateThemeIcon() {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        themeToggle.textContent = isLight ? '\u{1F319}' : '\u2600\uFE0F';
+        themeToggle.setAttribute('aria-label', isLight ? 'Увімкнути темну тему' : 'Увімкнути світлу тему');
+    }
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => {
+        const newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon();
+    });
+
+    // SMOOTH SCROLL for TOC
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e){
+            const el = document.getElementById(this.getAttribute('href').substring(1));
+            if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+        });
+    });
+</script>
+</body>
+</html>
