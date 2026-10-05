@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk" data-theme="dark" data-season="autumn">
+<html lang="uk" data-theme="dark" data-season="halloween">
 <head>
     <meta name="google-site-verification" content="QK4cHbtlRD4CjRqHFoUl75hQLJM_wB_RyLgxqzabCBQ" />
     <meta charset="UTF-8">
@@ -37,8 +37,8 @@
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пробне заняття за 200 грн — Guitar Residence | Музична школа в Києві</title>
-    <meta name="description" content="Акція весь вересень 2026: пробне заняття з гітари, вокалу або фортепіано — 200 грн замість 300 грн. Абонемент на 8 занять — 4800 грн замість 5200 грн. Київ, вул. Хрещатик, 6.">
+    <title>🎃 Страшенно великі знижки — Пробне заняття за 200 грн | Guitar Residence, Київ</title>
+    <meta name="description" content="Страшенно великі знижки весь жовтень 2026 (Halloween): пробне заняття з гітари, вокалу або фортепіано — 200 грн замість 300 грн. Абонемент на 8 занять — 4800 грн замість 5200 грн. Київ, вул. Хрещатик, 6.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -969,6 +969,21 @@
         /* =========================================================
            REDUCED MOTION
         ========================================================= */
+
+        /* =========================================================
+           PRINT
+        ========================================================= */
+        @media print {
+            .promo-bar, header, .floating-contacts, .mobile-sticky-bar,
+            .exit-overlay, #seasonalCanvas, .halloween-decor, .halloween-strip,
+            #cookieBanner, .theme-toggle, .map { display: none !important; }
+            body { background: #ffffff; color: #000000; padding-bottom: 0; }
+            .section { padding: 24px 0; }
+            .hero { min-height: auto; padding: 20px 0; margin-top: 0; }
+            .hero::before { display: none; }
+            .review { background: #ffffff; border: 1px solid #cccccc; }
+        }
+        @page { size: A4; margin: 18mm; }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             *, *::before, *::after {
@@ -978,11 +993,110 @@
             }
         }
     </style>
+
+    <!-- ============================================================
+         HALLOWEEN EXTRAS (season = halloween)
+    ============================================================ -->
+    <style>
+        [data-season="halloween"] {
+            --gold: #ff8c1a;
+            --gold-light: #ffb347;
+            --gold-dark: #e06a00;
+            --gold-glow: rgba(255, 140, 26, 0.45);
+            --accent-1: #7c3aed;
+            --accent-2: #dc2626;
+        }
+
+        /* purple / pumpkin wash over hero + CTA */
+        [data-season="halloween"] .hero::before,
+        [data-season="halloween"] .cta::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg,
+                rgba(76, 20, 120, 0.55) 0%,
+                rgba(124, 58, 237, 0.18) 45%,
+                rgba(255, 140, 26, 0.28) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        [data-season="halloween"] .pricing-plan.featured {
+            border-color: rgba(255, 140, 26, 0.65);
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.14), rgba(255, 140, 26, 0.07));
+            box-shadow: 0 8px 34px rgba(255, 140, 26, 0.18);
+        }
+        [data-season="halloween"] .plan-badge {
+            background: linear-gradient(135deg, #7c3aed, #ff8c1a);
+            color: #fff;
+        }
+        [data-season="halloween"] .price-section {
+            background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.18), transparent 45%),
+                        radial-gradient(circle at 85% 20%, rgba(255, 140, 26, 0.14), transparent 40%),
+                        var(--bg-secondary);
+        }
+
+        /* pumpkin strip */
+        .halloween-strip {
+            background: linear-gradient(90deg, rgba(76, 20, 120, 0.95), rgba(196, 74, 6, 0.95));
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+            position: relative;
+            z-index: 2;
+        }
+        .halloween-strip strong { color: #ffd08a; }
+        .halloween-strip .hs-emoji { font-size: 17px; vertical-align: -2px; }
+        .promo-expired .halloween-strip { display: none !important; }
+
+        /* floating hero decorations */
+        .halloween-decor {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.85;
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
+            filter: drop-shadow(0 0 12px rgba(255, 140, 26, 0.35));
+            animation: hd-float 6s ease-in-out infinite;
+        }
+        .hd-1 { top: 14%; right: 6%; animation-delay: 0s; }
+        .hd-2 { top: 46%; right: 15%; font-size: 30px; animation-delay: 1.4s; }
+        .hd-3 { top: 70%; right: 3%; font-size: 34px; animation-delay: 2.6s; }
+        @keyframes hd-float {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(-16px) rotate(6deg); }
+        }
+
+        /* halloween badge inside hero */
+        .halloween-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(124, 58, 237, 0.18);
+            border: 1px solid rgba(255, 140, 26, 0.45);
+            color: var(--gold-light);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 950px) {
+            .halloween-decor { display: none; }
+        }
+    </style>
 </head>
 <body>
 
 <!-- ======================================================
-     SEASONAL EFFECTS CANVAS
+     SEASONAL EFFECTS CANVAS (HALLOWEEN)
 ====================================================== -->
 <canvas id="seasonalCanvas" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></canvas>
 
@@ -990,7 +1104,7 @@
      PROMO BAR
 ====================================================== -->
 <div class="promo-bar" id="promoBar">
-    <strong>Акція весь вересень:</strong>
+    <strong>&#127875; Страшенно великі знижки — весь жовтень:</strong>
     <span>Пробне заняття <b>200 грн</b> замість 300 грн</span>
     <span style="opacity:0.5;">|</span>
     <span>Абонемент 8 занять <b>4800 грн</b> замість 5200 грн</span>
@@ -1033,9 +1147,12 @@
      HERO
 ====================================================== -->
 <section class="hero" id="home">
+    <span class="halloween-decor hd-1" aria-hidden="true">&#127875;</span>
+    <span class="halloween-decor hd-2" aria-hidden="true">&#129415;</span>
+    <span class="halloween-decor hd-3" aria-hidden="true">&#128123;</span>
     <div class="container">
         <div class="hero-content">
-            <div class="label">МУЗИЧНА ШКОЛА-СТУДІЯ · КИЇВ</div>
+            <div class="label">МУЗИЧНА ШКОЛА-СТУДІЯ · КИЇВ · HALLOWEEN EDITION</div>
             <h1>Навчимо грати <span>улюблені пісні</span> — навіть з нуля</h1>
             <p class="hero-description">
                 Індивідуальні заняття з гітари, вокалу та фортепіано в центрі Києва й онлайн. Починаємо з музики, яку ти хочеш грати, а не з місяців нудної теорії.
@@ -1043,7 +1160,7 @@
 
             <!-- Promo Badge -->
             <div class="hero-promo-badge">
-                <div class="promo-title">Акція весь вересень</div>
+                <div class="promo-title">&#127875; Страшенно великі знижки · весь жовтень</div>
                 <div class="promo-price-row">
                     <span class="promo-new-price">200 грн</span>
                     <span class="promo-old-price">300 грн</span>
@@ -1052,6 +1169,8 @@
                 <div class="promo-note">Пробне індивідуальне заняття 45 хвилин з будь-якого напряму</div>
                 <div class="promo-urgency">До кінця акції: <span id="heroTimer">обчислюємо...</span></div>
             </div>
+
+            <div class="halloween-badge"><span aria-hidden="true">&#128123;</span> Halloween-пропозиція до 31 жовтня</div>
 
             <div class="hero-actions">
                 <a href="#booking-form" class="btn btn-primary">Записатися на пробне &rarr;</a>
@@ -1092,6 +1211,15 @@
 </section>
 
 <!-- ======================================================
+     HALLOWEEN STRIP
+====================================================== -->
+<div class="halloween-strip">
+    <span class="hs-emoji" aria-hidden="true">&#127875;</span>
+    <strong>Страшенно великі знижки</strong> — весь жовтень, до 31 числа
+    <span class="hs-emoji" aria-hidden="true">&#128123;</span>
+</div>
+
+<!-- ======================================================
      FIRST LESSON
 ====================================================== -->
 <section class="section trial-section" id="first-lesson">
@@ -1104,7 +1232,7 @@
             <div class="scarcity-bar">
                 <div class="dot"></div>
                 <div>
-                    <strong>Кількість місць обмежена</strong> — пробні заняття за акційною ціною 200 грн діють до кінця вересня
+                    <strong>&#127875; Страшенно великі знижки — кількість місць обмежена</strong> — пробні заняття за акційною ціною 200 грн діють до 31 жовтня
                 </div>
             </div>
 
@@ -1354,7 +1482,7 @@
             <p class="section-subtitle">Пробне заняття триває 45 хвилин, усі регулярні заняття — 60 хвилин та проходять індивідуально. Чим регулярніше займаєшся — тим вигідніша вартість одного уроку.</p>
         </div>
 
-        <div class="sale-ends">Акційні ціни діють весь вересень</div>
+        <div class="sale-ends">&#127875; Страшенно великі знижки — акція діє весь жовтень, до 31 числа</div>
 
         <div class="price-card">
             <div class="price-row">
@@ -1375,13 +1503,14 @@
 
                 <article class="pricing-plan featured">
                     <div class="plan-badge">ПОПУЛЯРНИЙ</div>
+                    <div class="plan-badge-sale">&#127875; HALLOWEEN</div>
                     <div class="plan-count">8</div>
                     <h3 class="plan-title">занять на місяць</h3>
                     <ul class="plan-list">
                         <li>8 уроків по 60 хв</li>
                         <li>2 рази на тиждень</li>
                         <li>Оптимальний формат для стабільного прогресу</li>
-                        <li style="color:var(--gold);font-weight:700;">Акція вересня: заощадь 400 грн</li>
+                        <li style="color:var(--gold);font-weight:700;">Страшенно велика знижка: заощадь 400 грн</li>
                     </ul>
                     <div class="plan-price">
                         <strong>4 800 грн</strong>
@@ -1432,6 +1561,10 @@
             <article class="faq-item">
                 <h3>Як обрати напрям і викладача?</h3>
                 <p>Розкажи, яку музику хочеш виконувати, чи маєш досвід і чого очікуєш від занять. Ми запропонуємо напрям і викладача, які найкраще відповідають твоїм цілям.</p>
+            </article>
+            <article class="faq-item">
+                <h3>&#127875; До якої дати діють Halloween-знижки?</h3>
+                <p>Страшенно великі знижки діють весь жовтень — до 31 числа включно. Пробне заняття коштує 200 грн замість 300 грн, а абонемент на 8 занять — 4800 грн замість 5200 грн. Кількість місць на акційні пробні заняття обмежена.</p>
             </article>
         </div>
     </div>
@@ -1488,6 +1621,8 @@
                     <textarea id="message" name="message" rows="3" placeholder="Зручний час, питання, улюблені пісні..."></textarea>
                 </div>
 
+                <input type="hidden" name="promo" value="halloween-2026">
+
                 <label class="privacy-check" for="privacyConsent">
                     <input type="checkbox" id="privacyConsent" name="privacy_consent" value="yes" required>
                     <span>Я ознайомився / ознайомилася з <a href="privacy-policy.html" target="_blank" rel="noopener">Політикою конфіденційності</a> та погоджуюся на обробку даних для опрацювання моєї заявки.</span>
@@ -1516,12 +1651,12 @@
 <section class="cta" id="booking">
     <div class="container cta-inner">
         <div class="cta-content">
-            <div class="label">ПЕРШИЙ КРОК</div>
+            <div class="label">ПЕРШИЙ КРОК · HALLOWEEN</div>
             <h2>Твоя улюблена музика — найкраще місце, щоб почати.</h2>
             <p>Напиши, який напрям тобі цікавий, чи був досвід і коли тобі зручно займатися. Ми підберемо викладача та домовимося про перше індивідуальне заняття.</p>
 
             <div class="hero-promo-badge" style="margin-bottom:24px;max-width:420px;">
-                <div class="promo-title">Спеціальна пропозиція</div>
+                <div class="promo-title">&#127875; Страшенно великі знижки</div>
                 <div class="promo-price-row">
                     <span class="promo-new-price">200 грн</span>
                     <span class="promo-old-price">300 грн</span>
@@ -1607,9 +1742,9 @@
 <div class="exit-overlay" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
     <div class="exit-popup">
         <button class="exit-close" onclick="closeExitPopup()" aria-label="Закрити">&times;</button>
-        <div style="color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Зачекай</div>
+        <div style="color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Зачекай &#127875;</div>
         <h3 id="exitPopupTitle">Спробуй перше заняття за 200 грн</h3>
-        <p>Пробне заняття всього за <strong style="color:var(--gold-light);">200 грн</strong> замість 300 грн. Абонемент 8 занять — <strong style="color:var(--gold-light);">4800 грн</strong> замість 5200 грн.</p>
+        <p>Страшенно великі знижки до 31 жовтня: пробне заняття всього за <strong style="color:var(--gold-light);">200 грн</strong> замість 300 грн. Абонемент 8 занять — <strong style="color:var(--gold-light);">4800 грн</strong> замість 5200 грн.</p>
         <div class="promo-highlight">
             <strong>200 грн</strong>
             <span>пробне заняття 45 хв · економія 33%</span>
@@ -1618,7 +1753,7 @@
             <a href="#booking-form" class="btn btn-primary" onclick="closeExitPopup()">Записатися на пробне &rarr;</a>
             <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary">Telegram</a>
         </div>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:16px;margin-bottom:0;">Акція діє весь вересень</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:16px;margin-bottom:0;">Акція діє весь жовтень</p>
     </div>
 </div>
 
@@ -1650,9 +1785,9 @@
     });
 
     /* =========================================================
-       COUNTDOWN TIMER (fixed deadline: 30 Sep 2026 23:59:59 Kyiv time)
+       COUNTDOWN TIMER (fixed deadline: 31 Oct 2026 23:59:59 Kyiv time)
     ========================================================= */
-    const PROMO_DEADLINE = new Date('2026-09-30T23:59:59+03:00').getTime();
+    const PROMO_DEADLINE = new Date('2026-10-31T23:59:59+02:00').getTime();
 
     function getDayWord(number) {
         const last = number % 10;
@@ -1967,7 +2102,7 @@
     }
 
     /* =========================================================
-       AUTUMN LEAVES EFFECT (canvas)
+       HALLOWEEN EFFECT (canvas): bats + drifting sparks
     ========================================================= */
     (function() {
         const canvas = document.getElementById('seasonalCanvas');
@@ -1976,73 +2111,115 @@
         if (prefersReduced) return;
 
         const ctx = canvas.getContext('2d');
-        let width, height, leaves;
-        const colors = ['#c48a28', '#b45309', '#a07020', '#d4a03d', '#8a5a1a'];
+        let width, height, bats, sparks;
+        const sparkColors = ['#ff8c1a', '#ffb347', '#7c3aed', '#a855f7', '#e06a00'];
 
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
 
-        function createLeaf() {
+        function createBat() {
             return {
                 x: Math.random() * width,
-                y: Math.random() * -height,
-                size: 6 + Math.random() * 8,
-                speedY: 0.5 + Math.random() * 1.2,
-                speedX: -0.6 + Math.random() * 1.2,
-                angle: Math.random() * Math.PI * 2,
-                spin: (-0.02 + Math.random() * 0.04),
-                color: colors[Math.floor(Math.random() * colors.length)],
-                opacity: 0.35 + Math.random() * 0.4
+                y: Math.random() * height,
+                size: 8 + Math.random() * 10,
+                speedY: -0.25 + Math.random() * 0.6,
+                speedX: -1.1 + Math.random() * 2.2,
+                flap: Math.random() * Math.PI * 2,
+                flapSpeed: 0.06 + Math.random() * 0.07,
+                opacity: 0.22 + Math.random() * 0.26,
+                color: Math.random() > 0.55 ? '#3a1a52' : '#7a3d0a'
             };
         }
 
-        function initLeaves() {
-            const count = Math.min(40, Math.floor(width / 30));
-            leaves = [];
-            for (let i = 0; i < count; i++) leaves.push(createLeaf());
+        function createSpark() {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * -height,
+                size: 1.5 + Math.random() * 3,
+                speedY: 0.4 + Math.random() * 1.3,
+                speedX: -0.5 + Math.random() * 1.0,
+                wobble: Math.random() * Math.PI * 2,
+                color: sparkColors[Math.floor(Math.random() * sparkColors.length)],
+                opacity: 0.35 + Math.random() * 0.45
+            };
         }
 
-        function drawLeaf(l) {
+        function initParticles() {
+            const batCount = Math.min(14, Math.max(5, Math.floor(width / 160)));
+            const sparkCount = Math.min(45, Math.floor(width / 32));
+            bats = [];
+            sparks = [];
+            for (let i = 0; i < batCount; i++) bats.push(createBat());
+            for (let i = 0; i < sparkCount; i++) sparks.push(createSpark());
+        }
+
+        function drawBat(b) {
+            const s = b.size;
+            const flap = Math.sin(b.flap) * 0.55 + 0.75;
             ctx.save();
-            ctx.translate(l.x, l.y);
-            ctx.rotate(l.angle);
-            ctx.globalAlpha = l.opacity;
-            ctx.fillStyle = l.color;
+            ctx.translate(b.x, b.y);
+            ctx.globalAlpha = b.opacity;
+            ctx.fillStyle = b.color;
+            ctx.shadowColor = 'rgba(255, 140, 26, 0.35)';
+            ctx.shadowBlur = 6;
             ctx.beginPath();
-            ctx.ellipse(0, 0, l.size * 0.55, l.size, 0, 0, Math.PI * 2);
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(-s * 1.25, -s * 0.55 * flap, -s * 1.9, s * 0.12 * flap);
+            ctx.quadraticCurveTo(-s * 1.05, s * 0.18, 0, s * 0.35);
+            ctx.quadraticCurveTo(s * 1.05, s * 0.18, s * 1.9, s * 0.12 * flap);
+            ctx.quadraticCurveTo(s * 1.25, -s * 0.55 * flap, 0, 0);
             ctx.fill();
-            ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-            ctx.lineWidth = 0.6;
             ctx.beginPath();
-            ctx.moveTo(0, -l.size);
-            ctx.lineTo(0, l.size);
-            ctx.stroke();
+            ctx.arc(0, -s * 0.06, s * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSpark(s) {
+            ctx.save();
+            ctx.globalAlpha = s.opacity;
+            ctx.fillStyle = s.color;
+            ctx.shadowColor = s.color;
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+            ctx.fill();
             ctx.restore();
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            leaves.forEach(function(l) {
-                l.y += l.speedY;
-                l.x += l.speedX + Math.sin(l.y * 0.01) * 0.5;
-                l.angle += l.spin;
-                if (l.y > height + 20) {
-                    l.y = -20;
-                    l.x = Math.random() * width;
-                }
-                drawLeaf(l);
+
+            sparks.forEach(function(s) {
+                s.y += s.speedY;
+                s.wobble += 0.03;
+                s.x += s.speedX + Math.sin(s.wobble) * 0.6;
+                if (s.y > height + 10) { s.y = -10; s.x = Math.random() * width; }
+                drawSpark(s);
             });
+
+            bats.forEach(function(b) {
+                b.flap += b.flapSpeed;
+                b.x += b.speedX + Math.sin(b.flap * 0.4) * 0.6;
+                b.y += b.speedY;
+                if (b.x < -60) b.x = width + 40;
+                if (b.x > width + 60) b.x = -40;
+                if (b.y < -40) b.y = height + 30;
+                if (b.y > height + 40) b.y = -30;
+                drawBat(b);
+            });
+
             requestAnimationFrame(animate);
         }
 
         resize();
-        initLeaves();
+        initParticles();
         animate();
         window.addEventListener('resize', function() {
             resize();
-            initLeaves();
+            initParticles();
         });
     })();
 </script>
