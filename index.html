@@ -612,7 +612,16 @@
             color: var(--gold); font-family: var(--font-display); font-weight: 700;
             font-size: 44px; line-height: 1; letter-spacing: -1px;
         }
-        .plan-title { margin: 8px 0 20px; font-size: 19px; }
+        .plan-title { margin: 6px 0 4px; font-size: 20px; }
+        .plan-meta {
+            display: block; margin-bottom: 18px;
+            color: var(--text-muted); font-size: 11px;
+            letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700;
+        }
+        .plan-badge--flex {
+            background: transparent; color: var(--gold);
+            border: 1px solid var(--gold);
+        }
         .plan-list { display: grid; gap: 9px; padding: 0; margin: 0; list-style: none; color: var(--text-muted); font-size: 13px; }
         .plan-list li { padding-left: 20px; position: relative; }
         .plan-list li::before { content: "\2713"; position: absolute; left: 0; color: var(--gold); }
@@ -1278,7 +1287,7 @@
         <div class="center reveal">
             <div class="label">Вартість занять</div>
             <h2 class="section-title">Обери свій темп навчання.</h2>
-            <p class="section-subtitle">Пробне заняття триває 45 хвилин, усі регулярні заняття — 60 хвилин та проходять індивідуально. Чим регулярніше займаєшся — тим вигідніша вартість одного уроку.</p>
+            <p class="section-subtitle">Пробне заняття триває 45 хвилин, усі регулярні заняття — 60 хвилин та проходять індивідуально. Чим більше занять у пакеті — тим нижча вартість одного уроку.</p>
         </div>
 
         <div class="price-card reveal">
@@ -1294,41 +1303,51 @@
             <div class="pricing-grid">
                 <article class="pricing-plan">
                     <div class="plan-count">4</div>
-                    <h3 class="plan-title">заняття на місяць</h3>
+                    <h3 class="plan-title">Стартовий</h3>
+                    <span class="plan-meta">заняття на місяць</span>
                     <ul class="plan-list">
                         <li>4 уроки по 60 хв</li>
                         <li>1 раз на тиждень</li>
+                        <li>Діє один календарний місяць</li>
                         <li>Підходить для комфортного старту</li>
                     </ul>
                     <div class="plan-price"><strong>2 800 грн</strong><span>700 грн / урок</span></div>
                 </article>
 
                 <article class="pricing-plan featured">
-                    <div class="plan-badge">ПОПУЛЯРНИЙ</div>
+                    <div class="plan-badge">ВИБІР УЧНІВ</div>
                     <div class="plan-count">8</div>
-                    <h3 class="plan-title">занять на місяць</h3>
+                    <h3 class="plan-title">Популярний</h3>
+                    <span class="plan-meta">занять на місяць</span>
                     <ul class="plan-list">
                         <li>8 уроків по 60 хв</li>
                         <li>2 рази на тиждень</li>
+                        <li>Діє один календарний місяць</li>
                         <li>Оптимальний формат для стабільного прогресу</li>
-                        <li>Найпопулярніший вибір учнів</li>
                     </ul>
                     <div class="plan-price"><strong>5 200 грн</strong><span>650 грн / урок</span></div>
                 </article>
 
                 <article class="pricing-plan">
+                    <div class="plan-badge plan-badge--flex">ГНУЧКИЙ ГРАФІК</div>
                     <div class="plan-count">12</div>
-                    <h3 class="plan-title">занять на місяць</h3>
+                    <h3 class="plan-title">Максимальний</h3>
+                    <span class="plan-meta">занять · плаваючий графік · діє 3 місяці</span>
                     <ul class="plan-list">
                         <li>12 уроків по 60 хв</li>
-                        <li>3 рази на тиждень</li>
-                        <li>Максимальний результат за короткий час</li>
+                        <li>Плаваючий графік — діє 3 місяці, без привʼязки до місяця</li>
+                        <li>Заняття можна переносити у своєму темпі</li>
+                        <li>Найнижча вартість одного уроку</li>
                     </ul>
-                    <div class="plan-price"><strong>7 200 грн</strong><span>600 грн / урок</span></div>
+                    <div class="plan-price"><strong>7 800 грн</strong><span>650 грн / урок</span></div>
                 </article>
             </div>
 
-            <p class="price-helper">Абонементи розраховані на один місяць. Допоможемо обрати формат під твою ціль і графік.</p>
+            <p class="price-helper">
+                Стартовий і популярний абонементи розраховані на один календарний місяць.
+                Максимальний — з плаваючим графіком на 3 місяці: темп обираєш сам, заняття не привʼязані до календаря.
+                Допоможемо обрати формат під твою ціль і графік.
+            </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
                 <a href="#booking-form" class="btn btn-primary" style="flex:1;min-width:200px;">Записатися &rarr;</a>
                 <a href="https://t.me/guitar_residence" target="_blank" rel="noopener" class="btn btn-secondary" style="flex:1;min-width:200px;">Написати в Telegram</a>
@@ -1362,6 +1381,15 @@
             <details class="faq-item">
                 <summary>Як обрати напрям і викладача?</summary>
                 <div class="faq-answer">Розкажи, яку музику хочеш виконувати, чи маєш досвід і чого очікуєш від занять. Ми запропонуємо напрям і викладача, які найкраще відповідають твоїм цілям.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Чим відрізняються абонементи?</summary>
+                <div class="faq-answer">
+                    Стартовий (4 заняття) і Популярний (8 занять) діють один календарний місяць —
+                    це фіксований темп: раз або двічі на тиждень. Максимальний (12 занять) працює
+                    з плаваючим графіком 3 місяці: ти сам визначаєш, як часто приходити, і не втрачаєш
+                    заняття через відрядження чи хворобу. Вартість одного уроку при цьому найнижча —  650 грн.
+                </div>
             </details>
             <details class="faq-item">
                 <summary>Чи можна займатися онлайн?</summary>
